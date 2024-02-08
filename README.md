@@ -1,2 +1,2 @@
 # lab-jans-flex
-flex repo
+flex repo with agama
