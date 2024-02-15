@@ -36,7 +36,7 @@ pipeline {
             steps {
                 script{
                     def text = readYaml file:"${WORKSPACE}/charts/lab-jans-flex/values.yaml"
-                    text.gluu.oxauth.image.tag = "${BUILD_NUMBER}"
+                    text.auth-server.image.tag = "${BUILD_NUMBER}"
                     sh "cat charts/lab-jans-flex/values.yaml"
                     sh "rm -rf charts/lab-jans-flex/values.yaml"
                     writeYaml file: 'charts/lab-jans-flex/values.yaml', data: text
