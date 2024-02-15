@@ -1,14 +1,14 @@
 pipeline {
     agent any
     environment {
-        USER_CREDENTIALS_NEXUS = credentials('GBoss-nexus')
-        USER_CREDENTIALS_GIT = credentials('GBoss')
+        USER_CREDENTIALS_NEXUS = credentials('jenkins-nexus')
+        USER_CREDENTIALS_GIT = credentials('mocx-github')
     }
     stages {
         stage('Clone Flex Repo') {
             steps {
                 echo "${BUILD_NUMBER}"
-                git branch: 'main', changelog: false, credentialsId: 'GBoss', poll: false, url: 'https://github.com/Icurity/lab-jans-flex.git'
+                git branch: 'main', changelog: false, credentialsId: 'mocx-github', poll: false, url: 'https://github.com/Icurity/lab-jans-flex.git'
             }
         }
         stage('Building Flex Image') {
@@ -29,7 +29,7 @@ pipeline {
         }
         stage('Clone Flex Helm') {
             steps {
-                git branch: 'main', changelog: false, credentialsId: 'GBoss', poll: false, url: 'https://github.com/Icurity/lab-service-manifests.git'
+                git branch: 'main', changelog: false, credentialsId: 'mocx-github', poll: false, url: 'https://github.com/Icurity/lab-service-manifests.git'
             }
         }
         stage('Replace Flex docker tag') {
