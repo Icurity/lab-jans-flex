@@ -1,0 +1,54 @@
+pipeline {
+    agent any
+    environment {
+        USER_CREDENTIALS_NEXUS = credentials('GBoss-nexus')
+        USER_CREDENTIALS_GIT = credentials('GBoss')
+    }
+    stages {
+        stage('Clone Flex Repo') {
+            steps {
+                echo "${BUILD_NUMBER}"
+                git branch: 'main', changelog: false, credentialsId: 'GBoss', poll: false, url: 'https://github.com/Icurity/lab-jans-flex.git'
+            }
+        }
+        stage('Building Flex Image') {
+            steps {
+                script {
+                    dir("jans-auth") {
+                        dockerImage = docker.build "${APPLICATION}:${BUILD_NUMBER}"
+                    }
+                }
+            }
+        }
+        stage('Pushing Flex to Nexus') {
+            steps {
+                sh 'docker login 65.21.125.148:9001/icurity/ -u $USER_CREDENTIALS_NEXUS_USR -p $USER_CREDENTIALS_NEXUS_PSW'
+                sh 'docker tag ${APPLICATION}:${BUILD_NUMBER} 65.21.125.148:9001/icurity/${APPLICATION}:${BUILD_NUMBER}'
+                sh 'docker push 65.21.125.148:9001/icurity/${APPLICATION}:${BUILD_NUMBER}'
+                sh 'docker login 65.21.125.148:9001/icurity/ -u $USER_CREDENTIALS_NEXUS_USR -p $USER_CREDENTIALS_NEXUS_PSW'            }
+        }
+        stage('Clone Flex Helm') {
+            steps {
+                git branch: 'main', changelog: false, credentialsId: 'GBoss', poll: false, url: 'https://github.com/Icurity/lab-service-manifests.git'
+            }
+        }
+        stage('Replace Flex docker tag') {
+            steps {
+                script{
+                    def text = readYaml file:"${WORKSPACE}/charts/lab-jans-flex/values.yaml"
+                    text.gluu.oxauth.image.tag = "${BUILD_NUMBER}"
+                    sh "cat charts/lab-jans-flex/values.yaml"
+                    sh "rm -rf charts/lab-jans-flex/values.yaml"
+                    writeYaml file: 'charts/lab-jans-flex/values.yaml', data: text
+                    sh "cat charts/lab-jans-flex/values.yaml"
+                    sh 'git remote set-url origin https://$USER_CREDENTIALS_GIT_USR:$USER_CREDENTIALS_GIT_PSW@github.com/Icurity/lab-service-manifests.git'
+                    sh 'git config --global user.email "devsecops@icurity.co.za"'
+                    sh 'git config --global user.name "mocx"'
+                    sh "git add ."
+                    sh 'git commit -am "Change Flex values.yaml viaa Jenkins Pipelinee"'
+                    sh "git push origin main"
+                }
+            }
+        }
+    }
+}

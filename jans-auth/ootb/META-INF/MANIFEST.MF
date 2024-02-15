@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Created-By: Maven WAR Plugin 3.3.2
+Build-Jdk-Spec: 11
+Implementation-Title: Jans authentication server
+Implementation-Version: 1.0.22
+Build-Branch: origin/main
+Implementation-Build: e68dc11a31753a9d7320f221c54d6480fc4af3c5
+
