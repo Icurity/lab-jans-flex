@@ -1,1 +1,21 @@
-{}
+{
+    "nibss": {
+        "projectName": "nibss",
+        "description": "igree platform",
+        "type": "community",
+        "author": "Icurity",
+        "version": "0.0.1",
+        "authorWebsite": "https://github.com/Icurity/lab-jans-flex",
+        "githubUri": "https://github.com/Icurity/lab-jans-flex",
+        "license": "apache-2.0",
+        "lastUpdated": "1708082310271",
+        "tags": [
+            "authentication",
+            "openid-connect",
+            "jans",
+            "authorization"
+        ],
+        "noDirectLaunch": [],
+        "configs": {}
+    }
+}
