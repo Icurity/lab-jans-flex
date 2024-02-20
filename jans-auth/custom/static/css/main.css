@@ -1,0 +1,85 @@
+html {
+  position: fixed;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  user-select: none;
+  background-color: white;
+  font-family: BentonSans;
+  font-size: 16px;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  color: #333333;
+}
+
+body {
+  position: fixed;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  overscroll-behavior: none;
+}
+
+/*
+Leaving the colors here for easier reference.
+--color-transparent: #00000000;
+--color-white: #FFFFFF;
+--color-medium-grey: #AFAEAF;
+--color-light-grey: #EFEFEF;
+--color-dark-grey: #333333;
+--color-bright-turqouise: #1AC2F5;
+--color-gable-green: #1B2B3A;
+--color-turquoise: #2BE2CB;
+--color-mirage: #15212D;
+--color-granite: #242424;
+--color-charcoal: #4D4D4D;
+--color-smoke: #959595;
+--color-crater-dust: #EDEDED;
+--color-blue-mist: #83919F;
+--color-negative: #DE292E;
+--color-gradient-yellow: linear-gradient(65.31deg, #BB6500 27.17%, #F5E42C 91.6%);
+--color-gradient-blue: linear-gradient(246.83deg, #00C3FF 3.33%, #1C2B3A 81.86%);
+--color-gradient-green: linear-gradient(247.18deg, #81D138 8.9%, #275A1F 62.6%);
+--color-gradient-purple: linear-gradient(246.79deg, #DA0079 7.87%, #46244E 87.08%);
+ */
+
+#root {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: auto;
+  height: 100%;
+  background-color: white;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+}
+
+.fa {
+  margin-left: -12px;
+  margin-right: 8px;
+}
