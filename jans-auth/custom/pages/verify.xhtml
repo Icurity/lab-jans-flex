@@ -4,315 +4,317 @@
         xmlns:f="http://xmlns.jcp.org/jsf/core"
         xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
         xmlns:h="http://xmlns.jcp.org/jsf/html"
-        xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
         template="/WEB-INF/incl/layout/nibss-template.xhtml">
         <f:metadata>
                 <f:viewAction action="#{authenticator.prepareAuthenticationForStep}" />
         </f:metadata>
-        <ui:define name="head">
-                <meta name="description" content="Nibss Jans" />
-                <style type="text/css" >
-                        .login-panel {
-                            border-style: solid;
-                            border-width: 1px;
-                            padding: 1px;
-                            background-color: #FFFFFF;
-                            border-color: #C4C0B9;
-                        }
-            
-                        .login-panel-header {
-                            background-color: #D4CFC7;
-                            background-image: url("#{oxAuthConfigurationService.getImgLocation()}/panel_header_bg.png");
-                            background-position: left top;
-                            background-repeat: repeat-x;
-                            border-style: solid;
-                            border-width: 1px;
-                            padding: 2px;
-                            border-color: #D4CFC7;
-                            color: #000000;
-                            font-family: Arial, Verdana, sans-serif;
-                            font-size: 11px;
-                            font-weight: bold;
-                        }
-            
-                        .login-panel-body {
-                            padding: 10px;
-                            color: #000000;
-                            font-family: Arial, Verdana, sans-serif;
-                            font-size: 11px;
-                        }
-            
-                        .h4, h4 {
-                            font-size: 18px;
-                        }
-            
-                        .h4, .h5, .h6, h4, h5, h6 {
-                            margin-top: 10px;
-                            margin-bottom: 10px;
-                        }
-            
-                        p {
-                            margin: 0 0 10px !important;
-                        }
-            
-                        body {
-                            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-                            font-size: 14px;
-                            line-height: 1.42857143 !important;
-                            color: #333;
-                        }
-            
-                        input.btn.btn-done {
-                            background: #1ab26b;
-                            color: #fff !important;
-                            width: 100%;
-                            padding: 10px 10px;
-                            margin-top: 12px;
-                        }
-            
-                        .step_bx {
-                            border: 0px solid #ccc !important;
-                        }
-                        input#loginForm\:username{
-                            border-color: #6fcf97;
-                        }
-                    </style>
-        </ui:define>
-        <ui:define name="pageTitle">
-                <h:outputText value="BVNID - Verify" />
-        </ui:define>
-        <ui:define name="body">
-                <div style="display: none;position: fixed;width: 100%;height: 100%; justify-content: center;align-items: center;left: 0;top: 0;z-index: 999999;background: rgba(0,0,0,.5);"  id="custom-loader">
-                <img src="/oxauth/ext/resources/images/spinner.svg" /> 
-                </div>
-                <div class="container">
-                    <h:panelGroup id="loginGroup" rendered="#{not identity.loggedIn}">
-                        <ui:param name="client"
-                                  value="#{clientService.getClient(redirect.parameters['client_id'])}" />
-        <style>
-        
-        ul {
-        width: 100%;
-        }
-        input#loginForm\:loginButton-below{
-         display:none;
-        }
-        #navbarSupportedContent .navbar-nav { justify-content: center; }
-        input.proceed-button, p.proceed-button{
-         width: 35%;
-         border-radius: 10px;
-        }
-        p.proceed-button{
-        margin: auto;
-        }
-        /*#gg .bg-primary{
-         background:#6fcf97;
-        }
-        #gg .text-primary{
-         color: #1b472c;
-        }*/
-        input#loginForm\:username{
-        border-color: #89939E;
-        }
-        #loginButton_b{
-        display: none!important;
-        }
-        @media (max-width: 767px){
-        
-        input.proceed-button{
-         width: 100%;
-         margin-top: 1rem;
-        }
-        }
-        @media (max-width: 767px) and (orientation: landscape){
-        input.proceed-button{
-         width: 60%;
-        }
-        }
-        </style>
-        <div id="gg" class="step_bx_verify" style="margin: 0 auto !important; border: 0px !important;">
-                <!--            <h:panelGroup layout="block" class="ss"
-                                          rendered='#{!empty identity.getWorkingParameter("logoURI")}'>
-                                <h:graphicImage url='#{identity.getWorkingParameter("logoURI")}' width="65px"
-                                                height="65px" />
-                            </h:panelGroup>
-        
-        <div class="flex justify-center items-center p-6 mmb-6"><img src="/oxauth/servlet/logo" height="95px" alt="logo" /></div>-->
-        
-        <div class="flex flex-col justify-center p-6">
-        <h1 class="text-2xl md:text-3xl text-midnight font-medium mb-2 text-center "><h:outputText value="#{identity.getWorkingParameter('clientName')}" escape="false"  /></h1>
-        <div class="flex flex-col justify-center items-center p-6 mb-6">
-        <div class="flex flex-row items-center">
-                <div class="flex bvn-input-page items-center justify-center rounded-full w-7 h-7 font-bold bg-primary text-white">
-                        <div class="pt-1">1</div></div><div class="w-28 h-1 relative"><div class="bg-primary-light w-full h-full"></div><div class="absolute bg-primary-light w-1/2 h-full inset-0"></div></div><div class="flex bvn-input-page items-center justify-center rounded-full w-7 h-7 font-bold bg-primary-light text-primary"><div class="pt-1">2</div></div><div class="w-28 h-1 relative"><div class="bg-primary-light w-full h-full"></div></div><div class="flex bvn-input-page items-center justify-center rounded-full w-7 h-7 font-bold bg-primary-light text-primary"><div class="pt-1">3</div></div></div></div>
-        <div class="text-sm md:text-lg text-silver font-normal text-center ">
-                                    <h:outputText value="Input your BVN to verify your identity." escape="false" />
-                                </div>
-        
-                            <h:form id="loginForm" style="padding:20px 0px;" class="flex flex-col justify-center text-center px-4 md:px-12 py-12">
-        
-                                <div class="row">
-        <div class="col-md-3"></div><div class="col-md-6">
-        <div style="position: relative; width: 414px; max-width: 100%;  margin: 0 auto;">
-        <!--<i id="custom-loader" class="fa fa-spinner fa-spin" style="display:none;z-index:1;font-size:100%;position: absolute;margin-top: 22px;margin-right: 10px;right: 20px;"></i>-->
-                                    <h:inputText a:placeholder="BVN"
-                                                 id="username" name="username" required="true" colMd="10"
-                                                 pattern="[0-9]*" inputmode="numeric" a:maxlength="11"
-                                                 labelColMd="2" autocomplete="off"
-                                                 value="#{credentials.username}" styleClass="form-control  self-center text-2xl text-midnight text-center tracking-[.25em] placeholder:text-[#BAC2CA] font-normal border-2 border-gray px-4 md:px-16 py-4 rounded-xl focus:border-primary outline-none duration-500 transition-all focus:border-primary focus:drop-shadow-xl ease-in-out"
-                                                 style="max-width:100%;" minlength="11" maxlength="11"
-                                                 onkeypress="return /\d/.test(String.fromCharCode(event.keyCode || event.which))">
-                                    </h:inputText></div>
-        </div><div class="col-md-3"></div>
-        
-                                </div>
-                                <div class="row text-center ">
-                                    <h:messages class="text-center"
-                                                style="color: #8b0000; margin: 5px; margin-left: 0px; font-size: 13px !important; "
-                                                infoClass="text-center" errorClass="text-center"
-                                                id="err"/>
-                                </div>
-                                <div class="form-group row"></div>
-        
-                                <h:inputHidden id="platform" />
-        <div class="bvn-proceed-buuton">
-        <div class="md:text-lg text-silver font-normal text-center dail-number">Dial <span>*565*0#</span> on your mobile device to get your BVN</div>
-        <h:commandButton id="loginButton"
-        
-                                                     styleClass="button proceed-button rounded-full py-4 px-10 mt-8 bg-primary text-white border-2 border-transparent hover:border-primary hover:bg-primary-light hover:text-primary  self-center min-w-[170px] min-h-[60px] duration-300 ease-in-out transition-all hover:-translate-y-1 hover:drop-shadow-xl" value="Proceed"
-                                                     iconAwesome="fa-sign-in"
-                                                     action="#{authenticator.authenticate}"
-                                                     style="display: none; font-weight: 500;"
-                                                     onclick="javascript:return validate(this)"/>
-        
-                                                     <p id="loginButton_b" style="border-radius:10px; margin-top: 1rem; color:#fff; background: #6fcf97;font-weight: 500;display:none" class="button proceed-button rounded-full py-4 px-10 mt-8 bg-primary text-white border-2 border-transparent hover:border-primary hover:bg-primary-light hover:text-primary  self-center min-w-[170px] min-h-[60px] duration-300 ease-in-out transition-all hover:-translate-y-1 hover:drop-shadow-xl">Proceed&nbsp;<i class="fa fa-spinner fa-spin"></i></p>
-        
-        
-        <div class="mt-4">
-                                <div class="text-bvn md:text-lg text-silver font-normal text-center ">
-                                    To continue, NIBSS will share some of your information with <span style="color:#1A472B" class="text-primary font-normal"><h:outputText value="#{identity.getWorkingParameter('clientName')}" escape="false" /></span>.</div><div class="text-bvn md:text-lg text-silver font-normal text-center "><div class="mt-4 mb-4">
-                                    Before continuing you can review their <span style="color:#1A472B" class="text-primary font-normal"><a target="_blank" href="#{identity.getWorkingParameter('policyURI')}">
-                                        <h:outputText value="#{msgs['common.privacyPolicy']}" escape="false" />
-                                    </a></span> and <span style="color:#1A472B" class="text-primary font-normal"><a target="_blank" href="#{identity.getWorkingParameter('tosURI')}">
-                                        <h:outputText value="#{msgs['common.termsOfService']}" escape="false" />
-                                    </a></span>
-                                </div></div>
-        </div>
-        </div>
-        <h:commandButton id="loginButton-below"
-        
-                                                     styleClass="button rounded-full py-4 px-10 mt-8 bg-primary text-white border-2 border-transparent hover:border-primary hover:bg-primary-light hover:text-primary  self-center min-w-[170px] min-h-[60px] duration-300 ease-in-out transition-all hover:-translate-y-1 hover:drop-shadow-xl" value="Next"
-                                                     iconAwesome="fa-sign-in"
-                                                     action="#{authenticator.authenticate}"
-                                                     style="font-weight: 500;"
-                                                     onclick="javascript:return validate(this)"/>
-                                                    
-                                                     
-                                                    
-        
-                                <!--
-                <p style="font-size:12px;">
-                    By clicking Continue, you accept the <a target="_blank" href="#{identity.getWorkingParameter('tosURI')}">
-                        <h:outputText value="#{msgs['common.termsOfService']}" escape="false" />
-                    </a>
-                </p>
-                    -->
-        
-        <div class="flex flex-col justify-center items-center p-6 mb-6">
-            <!--<div class="flex flex-row items-center">
-                <div class="flex items-center justify-center rounded-full w-7 h-7 font-bold bg-primary text-white">
-                        <div class="pt-1">1</div></div><div class="w-5 h-1 relative"><div class="bg-primary-light w-full h-full"></div><div class="absolute bg-primary w-1/2 h-full inset-0"></div></div><div class="flex items-center justify-center rounded-full w-7 h-7 font-bold bg-primary-light text-primary"><div class="pt-1">2</div></div><div class="w-5 h-1 relative"><div class="bg-primary-light w-full h-full"></div></div><div class="flex items-center justify-center rounded-full w-7 h-7 font-bold bg-primary-light text-primary"><div class="pt-1">3</div></div></div><div class="flex flex-row mt-8"><div class="text-silver text-sm font-medium"><a href="https://nibss-plc.com.ng/policy/privacy-policy">Privacy Policy</a></div><div class="w-8"></div><div class="text-silver text-sm font-medium"><a href="https://vi-nibsssandbox.nibss-plc.com.ng/terms-and-conditions">Terms of Service</a></div></div>--></div>
-                             <!--  
-                                <div class="<div class="pt-1">1</div></div><div class="w-5 h-1 relative"><div class="bg-primary-light w-full h-full"></div><div class="absolute bg-primary w-1/2 h-full inset-0"></div></div><div class="flex items-center justify-center rounded-full w-7 h-7 font-bold bg-primary-light text-primary"><div class="pt-1">2</div></div><div class="w-5 h-1 relative"><div class="bg-primary-light w-full h-full"></div></div><div class="flex items-center justify-center rounded-full w-7 h-7 font-bold bg-primary-light text-primary"><div class="pt-1">3</div></div><div class="w-5 h-1 relative"><div class="bg-primary-light w-full h-full"></div></div><div class="flex items-center justify-center rounded-full w-7 h-7 font-bold bg-primary-light text-primary"><div class="pt-1">4</div></div></div><div class="flex flex-row mt-8"><div class="text-silver text-sm font-medium"><a href="https://nibss-plc.com.ng/policy/privacy-policy">Privacy Policy</a></div><div class="w-8"></div><div class="text-silver text-sm font-medium"><a href="https://vi-nibsssandbox.nibss-plc.com.ng/terms-and-conditions">Terms of Service</a></div></div></div>text-center"> <ui:include src="/nav.xhtml" /></div>-->
-                            </h:form></div>
-                            <!--
-            <div class="row">
-        
-        
-        
-            </div>
-                -->
-                        </div>
-                    </h:panelGroup>
-        <div id="appFooter"></div>
-                </div>
-           <!--     <script type="text/javascript">$(document).ready(function () {
-                                $('.other').click(function(){
-                                        $('#social_new').toggle();
-                                });
-                        if (localStorage.chkbx &amp;&amp; localStorage.chkbx != '') {
-                            $('#rememberme').attr('checked', 'checked')
-                            document.getElementById("loginForm:username").value = localStorage.usrname;
-                        } else {
-                            $('#rememberme').removeAttr('checked');
-                            document.getElementById("loginForm:username").value = "";
-                        }
-        
-                        $('#rememberme').click(function() {
-                            checkRemembeMe();
-                        });
-        
-                        fillPlatformField();
-        
-                                        var userNameField = document.getElementById("loginForm:username");
-                                        var passwordField = document.getElementById("loginForm:password");
-        
-                                        passwordField.value = "";
-                                        var userName = '#{!empty authorizeAction.loginHint ? authorizeAction.loginHint : ""}';
-                                        if (userName) {
-                                                userNameField.value = userName;
-                                                passwordField.focus();
-                                        } else {
-                                                userNameField.focus();
-                                        }
-        
-                                        var displayRegister = #{display_register_action or identity.sessionId.sessionAttributes['display_register_action']};
-                                        if (displayRegister) {
-                                                var registerButton = document.getElementById("loginForm:registerId");
-                                                if (registerButton != null) {
-                                                        registerButton.style.display = 'inline';
-                                                }
-                                        }
-                        });
-        
-                        function checkRemembeMe() {
-                        if ($('#rememberme').is(':checked')) {
-                            localStorage.usrname = document.getElementById("loginForm:username").value;
-                            localStorage.chkbx = $('#rememberme').val();
-                        } else {
-                            localStorage.usrname = '';
-                            localStorage.chkbx = '';
-                        }
-                                }
-        
-                    function fillPlatformField() {
-                        try {
-                            re = /^([^\.]+\.[^\.]+)\..+/;
-                            result = re.exec(platform.version);
-                            if (result != null) {
-                                platform.version=result[1];
-                            }
-                                    document.getElementById("loginForm:platform").value = JSON.stringify(platform);
-                        } catch (e) {
-                        }
-                    }</script> -->
-        
-        <script>
-            window.sessionStorage.setItem('clicked_option', null);
-            var input = document.querySelector('[placeholder=BVN]');
-            input.addEventListener('keyup', checkLength);
-            function checkLength(e){
-                if(e.target.value.length===11){
-                       // document.getElementById('custom-loader').style.display="flex";
-                        document.querySelector('[placeholder=BVN]').blur();
-                        document.querySelector('[value=Proceed]').click();
-                //	document.getElementById('custom-loader').style.display="flex";
-                       // setTimeout(function(){
-                                //document.querySelector('#loginButton_b').style.display = "none";
-                               // document.querySelector('[value=Proceed]').click();
-                        //}, 1000);
-                }
+    <ui:define name="head">
+        <meta name="description" content="NIBSS" />
+        <style type="text/css" >
+            .login-panel {
+                border-style: solid;
+                border-width: 1px;
+                padding: 1px;
+                background-color: #FFFFFF;
+                border-color: #C4C0B9;
             }
-        </script>
-        </ui:define>
+
+            .login-panel-header {
+                background-color: #D4CFC7;
+                background-image: url("#{oxAuthConfigurationService.getImgLocation()}/panel_header_bg.png");
+                background-position: left top;
+                background-repeat: repeat-x;
+                border-style: solid;
+                border-width: 1px;
+                padding: 2px;
+                border-color: #D4CFC7;
+                color: #000000;
+                font-family: Arial, Verdana, sans-serif;
+                font-size: 11px;
+                font-weight: bold;
+            }
+
+            .login-panel-body {
+                padding: 10px;
+                color: #000000;
+                font-family: Arial, Verdana, sans-serif;
+                font-size: 11px;
+            }
+
+            .h4, h4 {
+                font-size: 18px;
+            }
+
+            .h4, .h5, .h6, h4, h5, h6 {
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+
+            p {
+                margin: 0 0 10px !important;
+            }
+
+            body {
+                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                font-size: 14px;
+                line-height: 1.42857143 !important;
+                color: #333;
+            }
+
+            input.btn.btn-done {
+                background: #1ab26b;
+                color: #fff !important;
+                width: 100%;
+                padding: 10px 10px;
+                margin-top: 12px;
+            }
+
+            .step_bx {
+                border: 0px solid #ccc !important;
+            }
+            input#loginForm\:username{
+		border-color: #6fcf97;
+            }
+        </style>
+    </ui:define>
+    <ui:define name="pageTitle">
+        <h:outputText value="BVNID - Verify" />
+    </ui:define>
+    
+    <ui:define name="body">
+	<div style="display: none;position: fixed;width: 100%;height: 100%; justify-content: center;align-items: center;left: 0;top: 0;z-index: 999999;background: rgba(0,0,0,.5);"  id="custom-loader">
+	<img src="/jans-auth/ext/resources/images/spinner.svg" /> 
+	</div>
+        <div class="container">
+            <h:panelGroup id="loginGroup" rendered="#{not identity.loggedIn}">
+                <ui:param name="client"
+                          value="#{clientService.getClient(redirect.parameters['client_id'])}" />
+<style>
+
+ul {
+width: 100%;
+}
+input#loginForm\:loginButton-below{
+ display:none;
+}
+#navbarSupportedContent .navbar-nav { justify-content: center; }
+input.proceed-button, p.proceed-button{
+ width: 35%;
+ border-radius: 10px;
+}
+p.proceed-button{
+margin: auto;
+}
+/*#gg .bg-primary{
+ background:#6fcf97;
+}
+#gg .text-primary{
+ color: #1b472c;
+}*/
+input#loginForm\:username{
+border-color: #89939E;
+}
+#loginButton_b{
+display: none!important;
+}
+@media (max-width: 767px){
+
+input.proceed-button{
+ width: 100%;
+ margin-top: 1rem;
+}
+}
+@media (max-width: 767px) and (orientation: landscape){
+input.proceed-button{
+ width: 60%;
+}
+}
+</style>
+
+                <div id="gg" class="step_bx_verify" style="margin: 0 auto !important; border: 0px !important;">
+        <!--            <h:panelGroup layout="block" class="ss"
+                                  rendered='#{!empty identity.getWorkingParameter("logoURI")}'>
+                        <h:graphicImage url='#{identity.getWorkingParameter("logoURI")}' width="65px"
+                                        height="65px" />
+                    </h:panelGroup>
+
+<div class="flex justify-center items-center p-6 mmb-6"><img src="/oxauth/servlet/logo" height="95px" alt="logo" /></div>-->
+
+<div class="flex flex-col justify-center p-6">
+<h1 class="text-2xl md:text-3xl text-midnight font-medium mb-2 text-center "><h:outputText value="#{identity.getWorkingParameter('clientName')}" escape="false"  /></h1>
+<div class="flex flex-col justify-center items-center p-6 mb-6">
+<div class="flex flex-row items-center">
+        <div class="flex bvn-input-page items-center justify-center rounded-full w-7 h-7 font-bold bg-primary text-white">
+                <div class="pt-1">1</div></div><div class="w-28 h-1 relative"><div class="bg-primary-light w-full h-full"></div><div class="absolute bg-primary-light w-1/2 h-full inset-0"></div></div><div class="flex bvn-input-page items-center justify-center rounded-full w-7 h-7 font-bold bg-primary-light text-primary"><div class="pt-1">2</div></div><div class="w-28 h-1 relative"><div class="bg-primary-light w-full h-full"></div></div><div class="flex bvn-input-page items-center justify-center rounded-full w-7 h-7 font-bold bg-primary-light text-primary"><div class="pt-1">3</div></div></div></div>
+<div class="text-sm md:text-lg text-silver font-normal text-center ">
+                            <h:outputText value="Input your BVN to verify your identity." escape="false" />
+                        </div>
+
+                    <h:form id="loginForm" style="padding:20px 0px;" class="flex flex-col justify-center text-center px-4 md:px-12 py-12">
+
+                        <div class="row">
+<div class="col-md-3"></div><div class="col-md-6">
+<div style="position: relative; width: 414px; max-width: 100%;  margin: 0 auto;">
+<!--<i id="custom-loader" class="fa fa-spinner fa-spin" style="display:none;z-index:1;font-size:100%;position: absolute;margin-top: 22px;margin-right: 10px;right: 20px;"></i>-->
+                            <h:inputText a:placeholder="BVN"
+                                         id="username" name="username" required="true" colMd="10"
+					 pattern="[0-9]*" inputmode="numeric" a:maxlength="11"
+                                         labelColMd="2" autocomplete="off"
+                                         value="#{credentials.username}" styleClass="form-control  self-center text-2xl text-midnight text-center tracking-[.25em] placeholder:text-[#BAC2CA] font-normal border-2 border-gray px-4 md:px-16 py-4 rounded-xl focus:border-primary outline-none duration-500 transition-all focus:border-primary focus:drop-shadow-xl ease-in-out"
+                                         style="max-width:100%;" minlength="11" maxlength="11"
+                                         onkeypress="return /\d/.test(String.fromCharCode(event.keyCode || event.which))">
+                            </h:inputText></div>
+</div><div class="col-md-3"></div>
+
+                        </div>
+                        <div class="row text-center ">
+                            <h:messages class="text-center"
+                                        style="color: #8b0000; margin: 5px; margin-left: 0px; font-size: 13px !important; "
+                                        infoClass="text-center" errorClass="text-center"
+                                        id="err"/>
+                        </div>
+                        <div class="form-group row"></div>
+
+                        <h:inputHidden id="platform" />
+<div class="bvn-proceed-buuton">
+<div class="md:text-lg text-silver font-normal text-center dail-number">Dial <span>*565*0#</span> on your mobile device to get your BVN</div>
+<h:commandButton id="loginButton"
+
+                                             styleClass="button proceed-button rounded-full py-4 px-10 mt-8 bg-primary text-white border-2 border-transparent hover:border-primary hover:bg-primary-light hover:text-primary  self-center min-w-[170px] min-h-[60px] duration-300 ease-in-out transition-all hover:-translate-y-1 hover:drop-shadow-xl" value="Proceed"
+                                             iconAwesome="fa-sign-in"
+                                             action="#{authenticator.authenticate}"
+                                             style="display: none; font-weight: 500;"
+                                             onclick="javascript:return validate(this)"/>
+
+                                             <p id="loginButton_b" style="border-radius:10px; margin-top: 1rem; color:#fff; background: #6fcf97;font-weight: 500;display:none" class="button proceed-button rounded-full py-4 px-10 mt-8 bg-primary text-white border-2 border-transparent hover:border-primary hover:bg-primary-light hover:text-primary  self-center min-w-[170px] min-h-[60px] duration-300 ease-in-out transition-all hover:-translate-y-1 hover:drop-shadow-xl">Proceed&nbsp;<i class="fa fa-spinner fa-spin"></i></p>
+
+
+<div class="mt-4">
+                        <div class="text-bvn md:text-lg text-silver font-normal text-center ">
+                            To continue, NIBSS will share some of your information with <span style="color:#1A472B" class="text-primary font-normal"><h:outputText value="#{identity.getWorkingParameter('clientName')}" escape="false" /></span>.</div><div class="text-bvn md:text-lg text-silver font-normal text-center "><div class="mt-4 mb-4">
+                            Before continuing you can review their <span style="color:#1A472B" class="text-primary font-normal"><a target="_blank" href="#{identity.getWorkingParameter('policyURI')}">
+                                <h:outputText value="#{msgs['common.privacyPolicy']}" escape="false" />
+                            </a></span> and <span style="color:#1A472B" class="text-primary font-normal"><a target="_blank" href="#{identity.getWorkingParameter('tosURI')}">
+                                <h:outputText value="#{msgs['common.termsOfService']}" escape="false" />
+                            </a></span>
+                        </div></div>
+</div>
+</div>
+<h:commandButton id="loginButton-below"
+
+                                             styleClass="button rounded-full py-4 px-10 mt-8 bg-primary text-white border-2 border-transparent hover:border-primary hover:bg-primary-light hover:text-primary  self-center min-w-[170px] min-h-[60px] duration-300 ease-in-out transition-all hover:-translate-y-1 hover:drop-shadow-xl" value="Next"
+                                             iconAwesome="fa-sign-in"
+                                             action="#{authenticator.authenticate}"
+                                             style="font-weight: 500;"
+                                             onclick="javascript:return validate(this)"/>
+                                            
+                                             
+                                            
+
+                        <!--
+        <p style="font-size:12px;">
+            By clicking Continue, you accept the <a target="_blank" href="#{identity.getWorkingParameter('tosURI')}">
+                <h:outputText value="#{msgs['common.termsOfService']}" escape="false" />
+            </a>
+        </p>
+            -->
+
+<div class="flex flex-col justify-center items-center p-6 mb-6">
+    <!--<div class="flex flex-row items-center">
+        <div class="flex items-center justify-center rounded-full w-7 h-7 font-bold bg-primary text-white">
+                <div class="pt-1">1</div></div><div class="w-5 h-1 relative"><div class="bg-primary-light w-full h-full"></div><div class="absolute bg-primary w-1/2 h-full inset-0"></div></div><div class="flex items-center justify-center rounded-full w-7 h-7 font-bold bg-primary-light text-primary"><div class="pt-1">2</div></div><div class="w-5 h-1 relative"><div class="bg-primary-light w-full h-full"></div></div><div class="flex items-center justify-center rounded-full w-7 h-7 font-bold bg-primary-light text-primary"><div class="pt-1">3</div></div></div><div class="flex flex-row mt-8"><div class="text-silver text-sm font-medium"><a href="https://nibss-plc.com.ng/policy/privacy-policy">Privacy Policy</a></div><div class="w-8"></div><div class="text-silver text-sm font-medium"><a href="https://vi-nibsssandbox.nibss-plc.com.ng/terms-and-conditions">Terms of Service</a></div></div>--></div>
+                     <!--  
+                        <div class="<div class="pt-1">1</div></div><div class="w-5 h-1 relative"><div class="bg-primary-light w-full h-full"></div><div class="absolute bg-primary w-1/2 h-full inset-0"></div></div><div class="flex items-center justify-center rounded-full w-7 h-7 font-bold bg-primary-light text-primary"><div class="pt-1">2</div></div><div class="w-5 h-1 relative"><div class="bg-primary-light w-full h-full"></div></div><div class="flex items-center justify-center rounded-full w-7 h-7 font-bold bg-primary-light text-primary"><div class="pt-1">3</div></div><div class="w-5 h-1 relative"><div class="bg-primary-light w-full h-full"></div></div><div class="flex items-center justify-center rounded-full w-7 h-7 font-bold bg-primary-light text-primary"><div class="pt-1">4</div></div></div><div class="flex flex-row mt-8"><div class="text-silver text-sm font-medium"><a href="https://nibss-plc.com.ng/policy/privacy-policy">Privacy Policy</a></div><div class="w-8"></div><div class="text-silver text-sm font-medium"><a href="https://vi-nibsssandbox.nibss-plc.com.ng/terms-and-conditions">Terms of Service</a></div></div></div>text-center"> <ui:include src="/nav.xhtml" /></div>-->
+                    </h:form></div>
+                    <!--
+    <div class="row">
+
+
+
+    </div>
+        -->
+                </div>
+            </h:panelGroup>
+<div id="appFooter"></div>
+        </div>
+   <!--     <script type="text/javascript">$(document).ready(function () {
+                        $('.other').click(function(){
+                                $('#social_new').toggle();
+                        });
+                if (localStorage.chkbx &amp;&amp; localStorage.chkbx != '') {
+                    $('#rememberme').attr('checked', 'checked')
+                    document.getElementById("loginForm:username").value = localStorage.usrname;
+                } else {
+                    $('#rememberme').removeAttr('checked');
+                    document.getElementById("loginForm:username").value = "";
+                }
+
+                $('#rememberme').click(function() {
+                    checkRemembeMe();
+                });
+
+                fillPlatformField();
+
+                                var userNameField = document.getElementById("loginForm:username");
+                                var passwordField = document.getElementById("loginForm:password");
+
+                                passwordField.value = "";
+                                var userName = '#{!empty authorizeAction.loginHint ? authorizeAction.loginHint : ""}';
+                                if (userName) {
+                                        userNameField.value = userName;
+                                        passwordField.focus();
+                                } else {
+                                        userNameField.focus();
+                                }
+
+                                var displayRegister = #{display_register_action or identity.sessionId.sessionAttributes['display_register_action']};
+                                if (displayRegister) {
+                                        var registerButton = document.getElementById("loginForm:registerId");
+                                        if (registerButton != null) {
+                                                registerButton.style.display = 'inline';
+                                        }
+                                }
+                });
+
+                function checkRemembeMe() {
+                if ($('#rememberme').is(':checked')) {
+                    localStorage.usrname = document.getElementById("loginForm:username").value;
+                    localStorage.chkbx = $('#rememberme').val();
+                } else {
+                    localStorage.usrname = '';
+                    localStorage.chkbx = '';
+                }
+                        }
+
+            function fillPlatformField() {
+                try {
+                    re = /^([^\.]+\.[^\.]+)\..+/;
+                    result = re.exec(platform.version);
+                    if (result != null) {
+                        platform.version=result[1];
+                    }
+                            document.getElementById("loginForm:platform").value = JSON.stringify(platform);
+                } catch (e) {
+                }
+            }</script> -->
+
+<script>
+    window.sessionStorage.setItem('clicked_option', null);
+    var input = document.querySelector('[placeholder=BVN]');
+    input.addEventListener('keyup', checkLength);
+    function checkLength(e){
+        if(e.target.value.length===11){
+	       // document.getElementById('custom-loader').style.display="flex";
+		document.querySelector('[placeholder=BVN]').blur();
+		document.querySelector('[value=Proceed]').click();
+	//	document.getElementById('custom-loader').style.display="flex";
+               // setTimeout(function(){
+			//document.querySelector('#loginButton_b').style.display = "none";
+                       // document.querySelector('[value=Proceed]').click();
+                //}, 1000);
+        }
+    }
+</script>
+    </ui:define>
 </ui:composition>
+

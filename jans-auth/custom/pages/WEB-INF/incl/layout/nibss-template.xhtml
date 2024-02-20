@@ -1,45 +1,43 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-   xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-   xmlns:f="http://xmlns.jcp.org/jsf/core"
-   xmlns:h="http://xmlns.jcp.org/jsf/html">
-   <f:view transient="true" locale="#{language.locale}">
-      <h:head>
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <title>
-         <ui:insert name="Nibss Jans" />
-      </title>
-      <link rel="icon" href="#{request.contextPath}/servlet/favicon"
-         type='image/x-icon' />
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:h="http://xmlns.jcp.org/jsf/html">
+<f:view transient="true" locale="#{language.locale}">
+        <h:head>
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <title><ui:insert name="pageTitle" /></title>
+                <link rel="icon" href="#{request.contextPath}/servlet/favicon" type='image/x-icon' />
+                <link type="text/css" rel="stylesheet" href="#{webConfigurationService.getCssLocation()}/style.css" />
+                <link type="text/css" rel="stylesheet" href="#{webConfigurationService.getCssLocation()}/bootstrap.min.css" />
+                <link rel="stylesheet" href="#{webConfigurationService.getCssLocation()}/fontawesome.min.css" />
+                <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" />
 
-      <link href="https://fonts.cdnfonts.com/css/gotham" rel="stylesheet" />
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+                <link href="https://fonts.cdnfonts.com/css/gotham" rel="stylesheet" />
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-      <link rel="stylesheet" href="/oxauth/ext/resources/css/main-style.css?v=2" />
-      <script
-         src="#{oxAuthConfigurationService.getJsLocation()}/jquery-3.6.0.min.js" />
-         <script
-         	src="#{oxAuthConfigurationService.getJsLocation()}/bootstrap.min.js" />
-         <script
-         	src="#{oxAuthConfigurationService.getJsLocation()}/platform.js" />
-         
-            <script src="/oxauth/ext/resources/js/validations.js"></script>
+                <link rel="stylesheet" href="/oxauth/ext/resources/css/main-style.css?v=2" />
 
-	  <!-- Include Google Analytics tracking code -->
-        
-         </h:head>
-         <h:body>
-         <ui:include src="/ext/google-analytics.xhtml" />
+                <script
+                        src="#{webConfigurationService.getJsLocation()}/jquery-3.6.0.min.js" />
+                <script
+                        src="#{webConfigurationService.getJsLocation()}/bootstrap.min.js" />
+                <script
+                        src="#{webConfigurationService.getJsLocation()}/platform.js" />
+                
+        </h:head>
+        <h:body>
          <div id="__next" data-reactroot="">
                 <div class="container mx-auto">
                    <div class="flex justify-center items-center p-6 mmb-6">
                       <div class="w-28 md:w-60 or-pointer">
                          <span style="box-sizing:border-box;display:inline-block;overflow:hidden;width:initial;height:initial;background:none;opacity:1;border:0;margin:0;padding:0;position:relative;max-width:100%">
                          <a href="#">
-				<h:graphicImage url='#{identity.getWorkingParameter("logoURI")}' width="95px"  height="95px" />
+				<img style="max-height: 70px; padding-bottom: 2px;" id="AppLogo"
+                                        src="#{request.contextPath}/servlet/logo" />
 			</a>
                          </span>
                       </div>
@@ -49,20 +47,57 @@
 				   <ui:insert name="body" />
                </div>
              </div>
-         </h:body>
-         
-         <script type="text/javascript">
-         //<![CDATA[ 
-         $(document).ready((function() {
-			$(window).scroll((function() {
-				window.innerHeight < 620 ? document.getElementById("appFooter").style.display = "none" : document.getElementById("appFooter").style.display = "block"
-			})), $(window).on("resize", (function() {
-				$(this).height() >= 620 ? document.getElementById("appFooter").style.display = "block" : document.getElementById("appFooter").style.display = "none"
-			}))
-		}));         
-         //]]>
-      </script>
-   </f:view>
+                <!-- <div class="body">
+                        <ui:insert name="body" />
+                </div> -->
+        </h:body>
+<!--    <footer class="footer" id="appFooter">
+        <div class="row" style="margin-top: 20px;">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6 centered" style="text-align: center;">
+                        <p class="centered">
+                                &copy; <a target="_blank"
+                                        href="https://jans.io"><h:outputText
+                                                value="#{msgs['common.janssenProject']}" escape="false" /></a>
+                        </p>
+                </div>
+                <div class="col-sm-3"></div>
+        </div>
+        </footer> -->
+        <script type="text/javascript">
+                //<![CDATA[
+                $(document)
+                                .ready(
+                                                function() {
+                                                        $(window)
+                                                                        .scroll(
+                                                                                        function() {
+                                                                                                if (window.innerHeight < 620) {
+                                                                                                        document
+                                                                                                                        .getElementById("appFooter").style.display = "none";
+                                                                                                } else {
+                                                                                                        document
+                                                                                                                        .getElementById("appFooter").style.display = "block";
+                                                                                                }
+
+                                                                                        });
+
+                                                        $(window)
+                                                                        .on(
+                                                                                        'resize',
+                                                                                        function() {
+                                                                                                var win = $(this);
+                                                                                                if (win.height() >= 620) {
+                                                                                                        document
+                                                                                                                        .getElementById("appFooter").style.display = "block";
+                                                                                                } else {
+                                                                                                        document
+                                                                                                                        .getElementById("appFooter").style.display = "none";
+                                                                                                }
+                                                                                        });
+                                                });
+
+                //]]>
+        </script>
+</f:view>
 </html>
-
-
