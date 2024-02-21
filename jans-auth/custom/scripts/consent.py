@@ -67,22 +67,22 @@ class PersonAuthentication(PersonAuthenticationType):
         try:
             self.otp_type = configurationAttributes.get("otp_type").getValue2()
         except:
-            print "OTP. Initialization. Property issuer is mandatory"
+            print "Consent. Initialization. Property issuer is mandatory"
             return False
         
         try:
             self.otp_ttl = configurationAttributes.get("otp_ttl").getValue2()
         except:
-            print "OTP. Initialization. Property issuer is mandatory"
+            print "Consent. Initialization. Property issuer is mandatory"
             return False
         
         try:
             self.log_level = configurationAttributes.get("log_level").getValue2()
         except:
-            print "OTP. Initialization. Property issuer is mandatory"
+            print "Consent. Initialization. Property issuer is mandatory"
             return False
         
-        print "Consnent. Initialized successfully"
+        print "Consent. Initialized successfully"
         return True
 
     def destroy(self, configurationAttributes):
