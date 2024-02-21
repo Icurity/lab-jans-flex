@@ -55,7 +55,7 @@ class PersonAuthentication(PersonAuthenticationType):
         try:
             self.x_consumer_custom_id = configurationAttributes.get("x-consumer-custom-id").getValue2()
         except:
-            print "OTP. Initialization. Property value otp_type is invalid"
+            print "Consent. Initialization. Property value otp_type is invalid"
             return False
 
         try:
