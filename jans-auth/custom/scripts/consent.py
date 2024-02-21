@@ -61,7 +61,7 @@ class PersonAuthentication(PersonAuthenticationType):
         try:
             self.x_consumer_unique_id = configurationAttributes.get("x-consumer-unique-id").getValue2()
         except:
-            print "OTP. Initialization. Property issuer is mandatory"
+            print "Consent. Initialization. Property issuer is mandatory"
             return False
 
         try:

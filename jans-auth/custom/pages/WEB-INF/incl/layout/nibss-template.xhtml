@@ -10,16 +10,16 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <title><ui:insert name="pageTitle" /></title>
                 <link rel="icon" href="#{request.contextPath}/servlet/favicon" type='image/x-icon' />
-                <link type="text/css" rel="stylesheet" href="#{webConfigurationService.getCssLocation()}/style.css" />
-                <link type="text/css" rel="stylesheet" href="#{webConfigurationService.getCssLocation()}/bootstrap.min.css" />
+                <!-- <link type="text/css" rel="stylesheet" href="#{webConfigurationService.getCssLocation()}/style.css" /> 
+                 <link type="text/css" rel="stylesheet" href="#{webConfigurationService.getCssLocation()}/bootstrap.min.css" /> 
                 <link rel="stylesheet" href="#{webConfigurationService.getCssLocation()}/fontawesome.min.css" />
-                <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" />
+                <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" /> -->
 
                 <link href="https://fonts.cdnfonts.com/css/gotham" rel="stylesheet" />
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-                <link rel="stylesheet" href="/oxauth/ext/resources/css/main-style.css?v=2" />
+                <link rel="stylesheet" href="/jans-auth/custom/static/css/main-style.css?v=2" />
 
                 <script
                         src="#{webConfigurationService.getJsLocation()}/jquery-3.6.0.min.js" />
@@ -35,10 +35,9 @@
                    <div class="flex justify-center items-center p-6 mmb-6">
                       <div class="w-28 md:w-60 or-pointer">
                          <span style="box-sizing:border-box;display:inline-block;overflow:hidden;width:initial;height:initial;background:none;opacity:1;border:0;margin:0;padding:0;position:relative;max-width:100%">
-                         <a href="#">
-				<img style="max-height: 70px; padding-bottom: 2px;" id="AppLogo"
-                                        src="#{request.contextPath}/servlet/logo" />
-			</a>
+                                <a href="#">
+				        <h:graphicImage url='#{identity.getWorkingParameter("logoURI")}' width="95px"  height="95px" />
+			        </a>
                          </span>
                       </div>
 <!--<div style="position: absolute; left: 10%;" class="text-silver" onclick="history.back()"><i class="fa fa-chevron-left"></i></div>
