@@ -82,7 +82,7 @@ class PersonAuthentication(PersonAuthenticationType):
             print "OTP. Initialization. Property issuer is mandatory"
             return False
         
-        print "OTP. Initialized successfully"
+        print "Consnent. Initialized successfully"
         return True
 
     def destroy(self, configurationAttributes):
