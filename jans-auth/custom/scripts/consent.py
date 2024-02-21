@@ -49,7 +49,7 @@ class PersonAuthentication(PersonAuthenticationType):
         try:
             self.api_host = configurationAttributes.get("api_base_domain").getValue2()
         except:
-            print "OTP. Initialization. Property otp_type is mandatory"
+            print "Consent. Initialization. Property otp_type is mandatory"
             return False
 
         try:
