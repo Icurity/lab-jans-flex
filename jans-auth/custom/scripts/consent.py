@@ -279,9 +279,9 @@ class PersonAuthentication(PersonAuthenticationType):
 
     def getPageForStep(self, configurationAttributes, step):
         if step == 1:
-            return "/jans-auth/verify.xhtml"
+            return "/verify.xhtml"
         elif step == 2:
-            return "/jans-auth/otp.xhtml"
+            return "/auth/otp.xhtml"
 
         return ""
 
