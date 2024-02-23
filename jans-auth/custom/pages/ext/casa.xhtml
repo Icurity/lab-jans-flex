@@ -1,0 +1,157 @@
+<div xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+    xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <h:form rendered="#{not empty identity.getWorkingParameter('msg')}" class="loginForm" id="loginForm">
+        <div class="relative w55 mt44 pb22 casa-hidden">
+            <h:inputText id="otpCode" style="padding: 16px 64px;"
+                styleClass="otp-inputbox self-center text-2xl text-midnight text-center tracking-[.25em] pla    ceholder:textt-[#BAC2CA] font-normal border-2 border-gray px-4 md:px-16 py-4 rounded-xl focus:border-primary outline-none duration-500 transition-all focus:border-primary focus:drop-shadow-xl ease-in-out"
+                a:placeholder="6 digit code" autocomplete="off" minlength="6" maxlength="6"
+                onkeypress="return /\d/.test(String.fromCharCode(event.keyCode || event.which))" />
+        </div>
+        <div class="flex flex-col justify-center text-center my-4 md:my-8">
+            <div id="loginButton_div" style="max-width: 650px; background: #6FCF97; border-radius: 10px; max-heightt: 60px; margin: 0px;"
+                class="button rounded-full py-4 px-10 mt-4 bg-primary text-white border-2 border-transparent hover:border-primary hover:bg-primary-light hover:text-primary  self-center min-w-[170px] min-h-[60px] duration-300 ease-in-out transition-all hover:-translate-y-1 hover:drop-shadow-xl">
+                <div class="flex justify-center items-center font-medium">
+                    <h:commandButton style="font-weight: 500;"
+                        class="f7-cust bw0 br1 ph4 pv22 bg-bsgreen-success white hover-bsgreen-success hover-white btn cust-primary-button"
+                        value="Proceed" action="#{authenticator.authenticate}" onclick="return validate(this);" />
+                </div>
+            </div>
+
+
+            <p id="loginButton_b" style="font-weight: 500; display:none; max-width: 650px; background: #6FCF97; margin: 0px;" class="button rounded-full py-4 px-10 mt-8 bg-primary-light text-primary border-primary -translate-y-1 self-center min-w-[170px]">
+                 Proceed <i class="fa fa-spinner fa-spin"></i> </p>
+
+        </div>
+
+</h:form>
+
+<script>
+    let duration = 500
+    var prev
+
+    function showAlternative(id) {
+
+        $('#loginForm').remove()
+
+        prev = id
+        $("#" + id).slideUp(duration, function () {
+            $("#alternatives_section").slideDown(duration, function () {
+            })
+        })
+    }
+    function showOtp(id) {
+        prev = id
+        $("#" + id).slideUp(duration, function () {
+            $("#otp_section").slideDown(duration, function () {
+            })
+        })
+    }
+
+    function hideAlternative() {
+        $("#alternatives_section").slideUp(duration, function () {
+            $("#" + prev).slideDown(duration, function () {
+            })
+        })
+    }
+
+    function submitAlternative(contact, divEle) {
+
+	window.sessionStorage.setItem('clicked_option', contact);
+
+        if (contact == "cert") {
+            $("#alternatives_section").slideUp(duration, function () {
+                $("#cert_hint").slideDown(duration, function () {
+                })
+            })
+        } else {
+            submitForm(contact, divEle)
+        }
+    }
+    function replaceQ(contact) {
+        return contact.replace("'", "")
+    }
+
+    function submitForm(alternative, divEle) {
+        divEle.onclick = "#";
+        divEle.getElementsByTagName("i")[0].className = "fa fa-spinner fa-spin"
+        let f = document.getElementById("casa_form")
+        f.alternativeMethod.value = alternative
+        f.submit()
+    }
+    function validate() {
+        var val = document.getElementById("loginForm:otpCode").value;
+        var regex = /^[0-9\.]+$/;
+
+        if (regex.test(val)) {
+            document.getElementById("loginButton_b").style.display = "block";
+            document.getElementById("loginButton_div").style.display = "none";
+            return true;
+
+        }
+
+
+        else {
+            document.getElementById("loginForm:otpCode").style.borderColor = "red";
+            return false;
+        }
+    }
+</script>
+<!-- <script src="https://bvn-consent.nibss-plc.com.ng/casa/scripts/font-awesome-5.12.1.all.min.js" /> 
+        <script src="/oxauth/ext/resources/casa/scripts/font-awesome-5.12.1.all.min.js" /> -->
+<script>
+
+    let icons = {
+        //See https://github.com/FortAwesome/Font-Awesome/issues/8668
+        "email": '<i class="fa-regular fa-envelope fa-lg" style="font-size:100%;"></i>',
+        "otp": '<i class="fas fa-qrcode" style="font-size:100%;"></i>',
+        //"sms": '<i class="fas fa-sms" style="font-size:100%;"></i>',
+        "sms": '<i class="fa-regular fa-message" style="font-size:100%;"></i>',
+        "sms0": '<i class="fa-regular fa-message" style="font-size:100%;"></i>',
+        "sms1": '<i class="fa-regular fa-message" style="font-size:100%;"></i>',
+        "sms2": '<i class="fa-regular fa-message" style="font-size:100%;"></i>',
+
+    }
+
+    setTimeout(function(){
+    for (let k in icons) {
+        let elem = document.getElementById(k)
+        if (elem !== null) {
+            elem.innerHTML = icons[k]
+        }
+    }
+    }, 1000)
+
+    let msgs = {
+        //See https://github.com/FortAwesome/Font-Awesome/issues/8668
+        "email": 'We will send OTP to your mailbox to verify your identity.',
+        "sms": 'We will send an SMS with an OTP to your mobile device to verify your identity.',
+        "sms0": 'We will send an SMS with an OTP to your mobile device to verify your identity.',
+        "sms1": 'We will send an SMS with an OTP to your mobile device to verify your identity.',
+        "sms2": 'We will send an SMS with an OTP to your mobile device to verify your identity.',
+
+    }
+
+    for (let k in msgs) {
+        let elem = $("#" + k + "_")
+        if (elem.length == 1) {
+            elem.html(msgs[k])
+        }
+    }
+
+    if (false) {
+        $("#alter_link").addClass("dn")
+    }
+
+    if (${ identity.getWorkingParameter('contacts').size() eq 0 }) {
+        $("#alter_link").addClass("dn")
+    }
+    if (${ identity.getWorkingParameter('otp_auth_method') == 'select' }) {
+        showAlternative('otp_section')
+        $("#cancel_bt").addClass("dn")
+    } else {
+        showOtp('alternatives_section')
+    }
+</script>
+</div>
