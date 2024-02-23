@@ -281,7 +281,7 @@ class PersonAuthentication(PersonAuthenticationType):
         if step == 1:
             return "/verify.xhtml"
         elif step == 2:
-            return "/auth/otp.xhtml"
+            return "/ext/otp.xhtml"
 
         return ""
 
