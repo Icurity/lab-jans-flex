@@ -44,7 +44,7 @@ class PersonAuthentication(PersonAuthenticationType):
         self.currentTimeMillis = currentTimeMillis
 
     def init(self, customScript, configurationAttributes):
-        print "OTP. Initialization"
+        print "Consent. Initialization"
 
         try:
             self.api_host = configurationAttributes.get("api_base_domain").getValue2()
