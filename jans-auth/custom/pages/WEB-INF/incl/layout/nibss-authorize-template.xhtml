@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+<f:view transient="true" locale="#{language.locale}">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Jans</title>
+
+                <link rel="icon" href="#{webConfigurationService.getImgLocation()}/favicon_icosahedron.ico" />
+
+                <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+                <link href="https://fonts.cdnfonts.com/css/gotham" rel="stylesheet" />
+
+                <link type="text/css" rel="stylesheet" href="#{webConfigurationService.cssLocation}/site.css" />
+                <link type="text/css" rel="stylesheet" href="#{webConfigurationService.cssLocation}/authorize.css" />
+                <link type="text/css" rel="stylesheet" href="#{webConfigurationService.cssLocation}/bootstrap.min.css" />
+                <link type="text/css" rel="stylesheet" href="#{webConfigurationService.cssLocation}/font-awesome.css" />
+                <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" />
+
+
+                <script type="text/javascript" src="/jans-auth/ext/resources/casa/scripts/font-awesome-5.12.1.all.min.js" />
+	
+                <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+            
+                <link type="text/css" rel="stylesheet" href="/jans-auth/ext/resources/css/main-style.css?v=2" />
+            
+<ui:insert name="head"/>
+<style>
+            body {
+                font-family: 'Open Sans', sans-serif !important;
+            }
+
+            .focused-label-big {
+                top: 0;
+                left: 0;
+                right: 0;
+                display: flex;
+                align-items: center;
+                position: absolute;
+                font-size: .9rem;
+                cursor: text;
+                transition: .2s ease-in-out;
+                box-sizing: border-box;
+                height: .6rem;
+                width: 100%;
+                pointer-events: none;
+                margin-top: .25rem;
+            }
+
+            .focused-text:valid + .focused-label-big,
+            .focused-text:focus + .focused-label-big {
+                top: -28px;
+                font-size: .7rem;
+                color: #15b565;
+            }
+
+            .media img {
+                width: 54px;
+                height: 54px;
+                border: 1px solid #dfdfdf;
+                background-color: #e7e7e7;
+                border-radius: 50%;
+            }
+
+            .mh-3r {
+                max-height: 3rem;
+            }
+
+            .step_bx {
+                max-width: 470px;
+                margin: 0 13% auto;
+                border: 1px solid #ccc;
+                padding: 20px 31px;
+                text-align: center;
+                color: #929292 !important;
+            }
+            .msg_list{
+                margin-top: 5px !important;
+                margin-bottom: 10px !important;
+            }
+            .msg_list .msg{
+                padding: 3px !important;
+                background: rgb(250, 250, 248) !important;
+                border-radius: 5px !important;
+                border: 1px solid black !important;
+                display: inline-block !important;
+                
+            }
+            .ub_list{
+                list-style-type: none !important;
+                columns: 2;
+                -webkit-columns: 2;
+                -moz-columns: 2;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <div id="__next" data-reactroot="">
+            <div class="container mx-auto">
+                <!-- 
+                <div class="flex justify-center items-center p-6 mb-6">
+                      <div class="w-40 md:w-60 or-pointer">
+                    <img style="height: 120px; padding-bottom: 2px;" id="AppLogo"
+                         src="#{request.contextPath}/servlet/logo" />
+                 <p style="display: inline-block;">Use your BVN ID</p> 
+                </div>
+		</div>
+              <div class="bs-docs-section"
+                     style="border-top: 1px solid #228B22 !important; margin-bottom: 5px !important; margin-top: 1px !important; padding-top: 1px !important;"></div>
+	       -->    
+            <div id="status" class="modal"><span style="background-color: #006699; color: white; font-weight: bold; position: fixed; left: 0px; top: 0px; padding: 5px 5px 5px 5px">Loading...</span></div>
+            <script type="text/javascript">
+                function handleAjax(data) {
+                    var status = data.status;
+                    switch (status) {
+                        case "begin":
+                            document.getElementById('status').className = 'loading';
+                            break;
+
+                        case "complete":
+                            break;
+
+                        case "success":
+                            document.getElementById('status').className = 'modal';
+                            break;
+                    }
+                }
+
+                if (!(typeof jsf === 'undefined')) {
+                    jsf.ajax.addOnEvent(handleAjax);
+                }
+            </script>
+
+            <ui:insert name="body" />
+        </div>
+	</div>
+    </h:body>
+</f:view>
+</html>
