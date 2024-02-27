@@ -18,6 +18,7 @@
         </ui:define>
 
         <ui:define name="body" class="notification_cls">
+        <ui:include src="/ext/google-analytics.xhtml" />
                 <h:form id="authorizeForm">
                         <h:inputHidden id="session_id" value="#{authorizeAction.sessionId}" />
                         <ui:param name="client" value='#{_client}' />
