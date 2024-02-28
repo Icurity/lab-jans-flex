@@ -60,7 +60,7 @@ from org.apache.http.params import CoreConnectionPNames
 from io.jans.as.server.service.net import HttpService
 from io.jans.as.common.model.common import User
 from io.jans.as.server.model.authorize import ScopeChecker
-from io.jans.as.server.model.ldap import ClientAuthorization
+from io.jans.as.server.model.ldap import *
 from io.jans.service import MailService
 from java.nio.charset import Charset
 
