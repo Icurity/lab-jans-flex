@@ -427,7 +427,7 @@ class PersonAuthentication(PersonAuthenticationType):
         clientAuthZservice = CdiUtil.bean(ClientAuthorizationsService)
         scoperCheckk = CdiUtil.bean(ScopeChecker)
 
-
+        print "Consent Script. Preparing for step 1...setRequestScopedParameters"
         self.setRequestScopedParameters(identity, False)
 
         if step == 1:
