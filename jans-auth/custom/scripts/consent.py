@@ -60,7 +60,7 @@ from org.apache.http.params import CoreConnectionPNames
 from io.jans.as.server.service.net import HttpService
 from io.jans.as.common.model.common import User
 from io.jans.as.server.model.authorize import ScopeChecker
-from io.jans.as.server.model.ldap import ClientAuthorization
+#from io.jans.as.server.model.ldap import ClientAuthorization
 from io.jans.service import MailService
 from java.nio.charset import Charset
 
@@ -426,9 +426,6 @@ class PersonAuthentication(PersonAuthenticationType):
 
     def prepareForStep(self, configurationAttributes, requestParameters, step):
         identity = CdiUtil.bean(Identity)
-        clientAuthZ = CdiUtil.bean(ClientAuthorization)
-        clientAuthZservice = CdiUtil.bean(ClientAuthorizationsService)
-        scoperCheckk = CdiUtil.bean(ScopeChecker)
 
         print "Consent Script. Preparing for step 1...setRequestScopedParameters"
         self.setRequestScopedParameters(identity, False)
@@ -553,57 +550,6 @@ class PersonAuthentication(PersonAuthenticationType):
     def logout(self, configurationAttributes, requestParameters):
         return True
 
-    def setRequestScopedParameters(self, identity):
-        if self.registrationUri != None:
-            identity.setWorkingParameter("external_registration_uri", self.registrationUri)
-
-        if self.customLabel != None:
-            identity.setWorkingParameter("qr_label", self.customLabel)
-
-        identity.setWorkingParameter("qr_options", self.customQrOptions)
-
-    def loadOtpConfiguration(self, configurationAttributes):
-        print "OTP. Load OTP configuration"
-        if not configurationAttributes.containsKey("otp_conf_file"):
-            return False
-
-        otp_conf_file = configurationAttributes.get("otp_conf_file").getValue2()
-
-        # Load configuration from file
-        f = open(otp_conf_file, 'r')
-        try:
-            otpConfiguration = json.loads(f.read())
-        except:
-            print "OTP. Load OTP configuration. Failed to load configuration from file:", otp_conf_file
-            return False
-        finally:
-            f.close()
-
-        # Check configuration file settings
-        try:
-            self.hotpConfiguration = otpConfiguration["hotp"]
-            self.totpConfiguration = otpConfiguration["totp"]
-            
-            hmacShaAlgorithm = self.totpConfiguration["hmacShaAlgorithm"]
-            hmacShaAlgorithmType = None
-
-            if StringHelper.equalsIgnoreCase(hmacShaAlgorithm, "sha1"):
-                hmacShaAlgorithmType = HmacShaAlgorithm.HMAC_SHA_1
-            elif StringHelper.equalsIgnoreCase(hmacShaAlgorithm, "sha256"):
-                hmacShaAlgorithmType = HmacShaAlgorithm.HMAC_SHA_256
-            elif StringHelper.equalsIgnoreCase(hmacShaAlgorithm, "sha512"):
-                hmacShaAlgorithmType = HmacShaAlgorithm.HMAC_SHA_512
-            else:
-                print "OTP. Load OTP configuration. Invalid TOTP HMAC SHA algorithm: '%s'" % hmacShaAlgorithm
-                 
-            self.totpConfiguration["hmacShaAlgorithmType"] = hmacShaAlgorithmType
-        except:
-            print "OTP. Load OTP configuration. Invalid configuration file '%s' format. Exception: '%s'" % (otp_conf_file, sys.exc_info()[1])
-            return False
-        
-
-        return True
-
     def processBasicAuthentication(self, credentials):
         userService = CdiUtil.bean(UserService)
         authenticationService = CdiUtil.bean(AuthenticationService)
@@ -624,34 +570,6 @@ class PersonAuthentication(PersonAuthenticationType):
             return None
         
         return find_user_by_uid
-
-    def findEnrollments(self, user_name, skipPrefix = True):
-        result = []
-
-        userService = CdiUtil.bean(UserService)
-        user = userService.getUser(user_name, "jansExtUid")
-        if user == None:
-            print "OTP. Find enrollments. Failed to find user"
-            return result
-        
-        user_custom_ext_attribute = userService.getCustomAttribute(user, "jansExtUid")
-        if user_custom_ext_attribute == None:
-            return result
-
-        otp_prefix = "%s:" % self.otpType
-        
-        otp_prefix_length = len(otp_prefix) 
-        for user_external_uid in user_custom_ext_attribute.getValues():
-            index = user_external_uid.find(otp_prefix)
-            if index != -1:
-                if skipPrefix:
-                    enrollment_uid = user_external_uid[otp_prefix_length:]
-                else:
-                    enrollment_uid = user_external_uid
-
-                result.append(enrollment_uid)
-        
-        return result
 
     def validateSessionId(self, identity):
         session = CdiUtil.bean(SessionIdService).getSessionId()
@@ -1394,106 +1312,7 @@ class PersonAuthentication(PersonAuthenticationType):
         return False
 
     # Shared HOTP/TOTP methods
-    def generateSecretKey(self, keyLength):
-        bytes = jarray.zeros(keyLength, "b")
-        secureRandom = SecureRandom()
-        secureRandom.nextBytes(bytes)
-        
-        return bytes
-    
-    # HOTP methods
-    def generateSecretHotpKey(self):
-        keyLength = self.hotpConfiguration["keyLength"]
-        
-        return self.generateSecretKey(keyLength)
-
-    def generateHotpKey(self, secretKey, movingFactor):
-        digits = self.hotpConfiguration["digits"]
-
-        hotp = HOTP.key(secretKey).digits(digits).movingFactor(movingFactor).build()
-        
-        return hotp.value()
-
-    def validateHotpKey(self, secretKey, movingFactor, totpKey):
-        lookAheadWindow = self.hotpConfiguration["lookAheadWindow"]
-        digits = self.hotpConfiguration["digits"]
-
-        htopValidationResult = HOTPValidator.lookAheadWindow(lookAheadWindow).validate(secretKey, movingFactor, digits, totpKey)
-        if htopValidationResult.isValid():
-            return { "result": True, "movingFactor": htopValidationResult.getNewMovingFactor() }
-
-        return { "result": False, "movingFactor": None }
-
-    def generateHotpSecretKeyUri(self, secretKey, issuer, userDisplayName):
-        digits = self.hotpConfiguration["digits"]
-
-        secretKeyBase32 = self.toBase32(secretKey)
-        otpKey = OTPKey(secretKeyBase32, OTPType.HOTP)
-        label = issuer + " %s" % userDisplayName
-
-        otpAuthURI = OTPAuthURIBuilder.fromKey(otpKey).label(label).issuer(issuer).digits(digits).build()
-
-        return otpAuthURI.toUriString()
-
     # TOTP methods
-    def generateSecretTotpKey(self):
-        keyLength = self.totpConfiguration["keyLength"]
-        
-        return self.generateSecretKey(keyLength)
-
-    def generateTotpKey(self, secretKey):
-        digits = self.totpConfiguration["digits"]
-        timeStep = self.totpConfiguration["timeStep"]
-        hmacShaAlgorithmType = self.totpConfiguration["hmacShaAlgorithmType"]
-
-        totp = TOTP.key(secretKey).digits(digits).timeStep(TimeUnit.SECONDS.toMillis(timeStep)).hmacSha(hmacShaAlgorithmType).build()
-        
-        return totp.value()
-
-    def validateTotpKey(self, secretKey, totpKey, user_name):
-        localTotpKey = self.generateTotpKey(secretKey)
-        cachedOTP = self.getCachedOTP(user_name)
-
-        if StringHelper.equals(localTotpKey, totpKey) and not StringHelper.equals(localTotpKey, cachedOTP):
-            userService = CdiUtil.bean(UserService)
-            if cachedOTP is None:
-                userService.addUserAttribute(user_name, "jansOTPCache",localTotpKey)
-            else :
-                userService.replaceUserAttribute(user_name, "jansOTPCache", cachedOTP, localTotpKey)
-            print "OTP. Caching OTP: '%s'" % localTotpKey
-            return { "result": True }
-        return { "result": False }
-	
-    def getCachedOTP(self, user_name):
-        userService = CdiUtil.bean(UserService)
-        user = userService.getUser(user_name, "jansOTPCache")
-        if user is None:
-            print "OTP. Get Cached OTP. Failed to find OTP"
-            return None
-        customAttribute = userService.getCustomAttribute(user, "jansOTPCache")
-        
-        if customAttribute is None:
-            print "OTP. Custom attribute is null"
-            return None
-        user_cached_OTP = customAttribute.getValue()
-        if user_cached_OTP is None:
-            print "OTP. no OTP is present in LDAP"
-            return None
-        
-        print "OTP.Cached OTP: '%s'" % user_cached_OTP
-        return user_cached_OTP
-        
-    def generateTotpSecretKeyUri(self, secretKey, issuer, userDisplayName):
-        digits = self.totpConfiguration["digits"]
-        timeStep = self.totpConfiguration["timeStep"]
-
-        secretKeyBase32 = self.toBase32(secretKey)
-        otpKey = OTPKey(secretKeyBase32, OTPType.TOTP)
-        label = issuer + " %s" % userDisplayName
-
-        otpAuthURI = OTPAuthURIBuilder.fromKey(otpKey).label(label).issuer(issuer).digits(digits).timeStep(TimeUnit.SECONDS.toMillis(timeStep)).build()
-
-        return otpAuthURI.toUriString()
 
     def searchForBvnUser(self, credentials):
         authenticationService = CdiUtil.bean(AuthenticationService)
