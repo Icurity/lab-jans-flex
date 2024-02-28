@@ -25,8 +25,8 @@ import time
 import traceback
 
 import jarray
-import json
-import sys
+#import json
+#import sys
 from com.google.common.io import BaseEncoding
 from com.lochbridge.oath.otp import HOTP
 from com.lochbridge.oath.otp import HOTPValidator
