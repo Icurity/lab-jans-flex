@@ -60,7 +60,7 @@ from org.apache.http.params import CoreConnectionPNames
 from io.jans.as.server.service.net import HttpService
 from io.jans.as.common.model.common import User
 from io.jans.as.server.model.authorize import ScopeChecker
-from io.jans.as.server.model.ldap import *
+from io.jans.as.server.model.ldap import ClientAuthorization
 from io.jans.service import MailService
 from java.nio.charset import Charset
 
@@ -214,10 +214,13 @@ class PersonAuthentication(PersonAuthenticationType):
         #facesMessages = CdiUtil.bean(FacesMessages)
         #facesMessages.setKeepMessages()
 
+        print "Consent script. Preparing to step 1 >> Authenticate method"
+
         if step == 1:
             # If the user profile was not found in Gluu then always call BVN API
             authenticated_user = self.searchForBvnUser(credentials)
-            user_id = credentials.getUsername() 
+            user_id = credentials.getUsername()
+            print "Consent script. User name is: %s " % user_id 
             if authenticated_user == None:
                 logInfo(
                     "authenticate:Step 1: Failed to find or authn user in Gluu. Calling BVN api now. event_id: '%s' client_ref: '%s' bvn: '%s'" % (
