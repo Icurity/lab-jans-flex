@@ -18,15 +18,17 @@ try:
     import json
 except ImportError:
     import simplejson as json
+import jarray
 import sys
 import random
 from datetime import datetime, timedelta;
 import time
 import traceback
 
-import jarray
+
 #import json
 #import sys
+#Unused imports
 from com.google.common.io import BaseEncoding
 from com.lochbridge.oath.otp import HOTP
 from com.lochbridge.oath.otp import HOTPValidator
@@ -35,21 +37,28 @@ from com.lochbridge.oath.otp import TOTP
 from com.lochbridge.oath.otp.keyprovisioning import OTPAuthURIBuilder
 from com.lochbridge.oath.otp.keyprovisioning import OTPKey
 from com.lochbridge.oath.otp.keyprovisioning.OTPKey import OTPType
+
+
+
 from java.security import SecureRandom
 from java.util import HashSet, ArrayList, Arrays
 from java.util.concurrent import TimeUnit
 from jakarta.faces.application import FacesMessage
 from io.jans.jsf2.message import FacesMessages
 from io.jans.model.custom.script.type.auth import PersonAuthenticationType
-from io.jans.as.server.security import Identity
-from io.jans.as.server.service import AuthenticationService, SessionIdService, ClientService, ClientAuthorizationsService
+from io.jans.as.server.service import AuthenticationService
 from io.jans.as.server.service import UserService
+from io.jans.as.server.service import SessionIdService
+from io.jans.as.server.service import ClientService
+from io.jans.as.server.service import ClientAuthorizationsService
+from io.jans.as.server.security import Identity
 from io.jans.as.server.util import ServerUtil
 from io.jans.service.cdi.util import CdiUtil
 
+from org.apache.http.params import CoreConnectionPNames
+
 from io.jans.as.server.service.net import HttpService
 from io.jans.as.common.model.common import User
-from org.apache.http.params import CoreConnectionPNames
 from io.jans.as.server.model.authorize import ScopeChecker
 from io.jans.as.server.model.ldap import ClientAuthorization
 from io.jans.service import MailService
