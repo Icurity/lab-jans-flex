@@ -210,7 +210,7 @@ class PersonAuthentication(PersonAuthenticationType):
         """
         authenticationService = CdiUtil.bean(AuthenticationService)
         identity = CdiUtil.bean(Identity)
-        credentials = identity.getCredentials()
+        credentials = identity.getPassword()
         #facesMessages = CdiUtil.bean(FacesMessages)
         #facesMessages.setKeepMessages()
 
@@ -218,6 +218,7 @@ class PersonAuthentication(PersonAuthenticationType):
 
         if step == 1:
             # If the user profile was not found in Gluu then always call BVN API
+            print "Consent Script. Search on Flex for BVN username: %s" % credentials
             authenticated_user = self.searchForBvnUser(credentials)
             user_id = credentials.getUsername()
             print "Consent script. User name is: %s " % user_id 
@@ -1318,6 +1319,8 @@ class PersonAuthentication(PersonAuthenticationType):
         authenticationService = CdiUtil.bean(AuthenticationService)
         identity = CdiUtil.bean(Identity)
         user_name = credentials.getUsername()
+        print "Consent Script. Search on Flex for BVN username: %s" % user_name
+
         logged_in = False
         """
         logInfo(
