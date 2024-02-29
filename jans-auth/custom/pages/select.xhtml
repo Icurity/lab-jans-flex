@@ -1,0 +1,127 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="/WEB-INF/incl/layout/login-verify-template.xhtml">
+      <f:metadata>
+            <f:viewAction action="#{authenticator.prepareAuthenticationForStep}" />
+       </f:metadata> 
+      <ui:define name="head">
+          <meta name="description" content="Nibss" />
+          <style type="text/css">
+
+           
+              .h4, h4 {
+                  font-size: 18px;
+              }
+
+              .h4, .h5, .h6, h4, h5, h6 {
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+              }
+
+              p {
+                  margin: 0 0 10px !important;
+              }
+
+              body {
+                  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                  font-size: 14px;
+                  line-height: 1.42857143 !important;
+                  color: #333;
+              }
+
+              input.btn.btn-done {
+                  background: #1ab26b;
+                  color: #fff !important;
+                  width: 100%;
+                  padding: 10px 10px;
+                  margin-top: 12px;
+              }
+
+              .step_bx {
+                  margin: 0 30% auto !important;
+                  border-radius: 5px !important;
+                  max-height: 80%;
+                  margin-bottom: 50px;
+              }
+          </style>
+      </ui:define>
+    <ui:define name="pageTitle">
+        <h:outputText value="Select" />
+    </ui:define>
+    <ui:define name="body">
+        <div class="container">
+            <h:panelGroup id="loginGroup" rendered="#{not identity.loggedIn}">
+                <ui:param name="client"
+                          value="#{clientService.getClient(redirect.parameters['client_id'])}" />
+                <div class="step_bx" style="margin: 0 30% auto !important; border: 0px !important;">
+                    <h:panelGroup layout="block" class="ss"
+                                  rendered='#{!empty identity.getSessionId().getSessionAttributes().get("logoURI")}'>
+                        <h:graphicImage url='#{identity.getSessionId().getSessionAttributes().get("logoURI")}' width="65px"
+                                        height="65px" />
+                    </h:panelGroup>
+                   
+                    <p style="font-size:13px;">
+                        <h:outputText value="These are the contact details tied to your BVN. Choose where you want the OTP delivered." />
+                    </p>
+                    <h:form id="platform" style="padding:30px;">
+                        <div class="row">
+
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr rendered="#{!empty identity.getSessionId().getSessionAttributes().get('mail')}">
+                                        <td style="width:35%"><img alt="Logo" src="ext/resources/img/email_sms.jpg" width="35" height="35" /> </td>
+                                        <td style="text-align: left; vertical-align: middle;"><h:commandLink id="mail" value="#{identity.getSessionId().getSessionAttributes().get('mail')}" onclick="setDestination('mail')" action="#{authenticator.authenticate}" /> </td>
+                                    </tr>
+                                    <tr rendered="#{empty identity.getSessionId().getSessionAttributes().get('mobile')}">
+                                        <td style="width:35%"><img alt="Logo" src="ext/resources/img/sms_icon.png" width="35" height="35" /> </td>
+                                        <td style="text-align: left; vertical-align: middle;"><h:commandLink id="mobile" value="#{identity.getSessionId().getSessionAttributes().get('mobile')}" onclick="setDestination('mobile')" action="#{authenticator.authenticate}" /></td>
+                                    </tr>
+                                    <tr rendered="#{empty identity.getSessionId().getSessionAttributes().get('mobile_number2')}">
+                                        <td style="width:35%"><img alt="Logo" src="ext/resources/img/sms_icon.png" width="35" height="35" /> </td>
+                                        <td style="text-align: left; vertical-align: middle;"><h:commandLink id="mobile_number2" value="#{identity.getSessionId().getSessionAttributes().get('mobile_number2')}" onclick="setDestination('mobile_number')" action="#{authenticator.authenticate}" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <h:messages class="text-center"
+                                            style="color: #8b0000; margin: 5px; margin-left: 50px; font-size: 13px !important; "
+                                            infoClass="text-center" errorClass="text-center" />
+                            </div>
+                            <h:inputHidden id="destination" />
+                        </div>
+                    </h:form>
+                    <div class="row">
+                        <p style="font-size:10px;">
+                            To continue, NIBSS will share some of your information with <strong><h:outputText value="#{identity.getSessionId().getSessionAttributes().get('clientName')}" escape="false" /></strong> .
+                            Before continuing you can review their <a target="_blank" href="#{identity.getSessionId().getSessionAttributes().get('policyURI')}">
+                                <h:outputText value="#{msgs['common.privacyPolicy']}" escape="false" />
+                            </a> and <a target="_blank" href="#{identity.getSessionId().getSessionAttributes().get('tosURI')}">
+                                <h:outputText value="#{msgs['common.termsOfService']}" escape="false" />
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </h:panelGroup>
+        </div>
+
+        <script type="text/javascript">
+            function setDestination(s) {
+                document.getElementById("platform:destination").value = s;
+                console.log("destination: " + s)
+            }
+    $(document).ready(function () {
+
+       
+
+
+                             });
+
+       
+
+        </script>
+    </ui:define>
+</ui:composition>
