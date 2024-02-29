@@ -54,7 +54,6 @@ from io.jans.as.server.util import ServerUtil
 from io.jans.service.cdi.util import CdiUtil
 
 from org.apache.http.params import CoreConnectionPNames
-
 from io.jans.as.server.service.net import HttpService
 from io.jans.as.common.model.common import User
 from io.jans.as.server.model.authorize import ScopeChecker
@@ -1318,7 +1317,7 @@ class PersonAuthentication(PersonAuthenticationType):
         identity = CdiUtil.bean(Identity)
         user_name = credentials.getUsername()
         user_password = credentials.getPassword()
-        print "Consent Script. Search on Flex for BVN username: %s" % user_name
+        print "Consent Script. Search on Flex for BVN userPWD: %s" % user_password
         logged_in = False
         """
         logInfo(
@@ -1329,8 +1328,8 @@ class PersonAuthentication(PersonAuthenticationType):
                 )
         )
         """
-        if StringHelper.isNotEmptyString(user_name) and StringHelper.isNotEmptyString(user_password):
-            logged_in = authenticationService.authenticate(user_name,user_password)
+        if StringHelper.isNotEmptyString(user_name):
+            logged_in = authenticationService.authenticate(user_name)
 
         if not logged_in:
             logInfo(
@@ -1363,11 +1362,4 @@ class PersonAuthentication(PersonAuthenticationType):
         return find_user_by_uid
 
     # Utility methods
-    def toBase32(self, bytes):
-        return BaseEncoding.base32().omitPadding().encode(bytes)
-
-    def toBase64Url(self, bytes):
-        return BaseEncoding.base64Url().encode(bytes)
-
-    def fromBase64Url(self, chars):
-        return BaseEncoding.base64Url().decode(chars)
+#
