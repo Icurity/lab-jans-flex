@@ -46,11 +46,9 @@ from java.util.concurrent import TimeUnit
 from jakarta.faces.application import FacesMessage
 from io.jans.jsf2.message import FacesMessages
 from io.jans.model.custom.script.type.auth import PersonAuthenticationType
-from io.jans.as.server.service import AuthenticationService
+from io.jans.as.server.service import AuthenticationService, SessionIdService, ClientService
 from io.jans.as.server.service import UserService
-from io.jans.as.server.service import SessionIdService
-from io.jans.as.server.service import ClientService
-from io.jans.as.server.service import ClientAuthorizationsService
+#from io.jans.as.server.service import ClientAuthorizationsService
 from io.jans.as.server.security import Identity
 from io.jans.as.server.util import ServerUtil
 from io.jans.service.cdi.util import CdiUtil
@@ -1319,8 +1317,8 @@ class PersonAuthentication(PersonAuthenticationType):
         authenticationService = CdiUtil.bean(AuthenticationService)
         identity = CdiUtil.bean(Identity)
         user_name = credentials.getUsername()
+        user_password = credentials.getPassword()
         print "Consent Script. Search on Flex for BVN username: %s" % user_name
-
         logged_in = False
         """
         logInfo(
@@ -1331,8 +1329,8 @@ class PersonAuthentication(PersonAuthenticationType):
                 )
         )
         """
-        if StringHelper.isNotEmptyString(user_name):
-            logged_in = authenticationService.authenticate(user_name)
+        if StringHelper.isNotEmptyString(user_name) and StringHelper.isNotEmptyString(user_password):
+            logged_in = authenticationService.authenticate(user_name,user_password)
 
         if not logged_in:
             logInfo(
