@@ -425,7 +425,6 @@ class PersonAuthentication(PersonAuthenticationType):
     def prepareForStep(self, configurationAttributes, requestParameters, step):
         identity = CdiUtil.bean(Identity)
 
-        print "Consent Script. Preparing for step 1...setRequestScopedParameters"
         self.setRequestScopedParameters(identity, False)
 
         if step == 1:
@@ -497,6 +496,7 @@ class PersonAuthentication(PersonAuthenticationType):
 
             return True
 
+
     def getExtraParametersForStep(self, configurationAttributes, step):
         return Arrays.asList("otp_auth_method", "msg","retry_current_step", "contacts", "hidden_contacts", "client_ref", "code" )
 
@@ -548,25 +548,51 @@ class PersonAuthentication(PersonAuthenticationType):
     def logout(self, configurationAttributes, requestParameters):
         return True
 
-    def processBasicAuthentication(self, credentials):
-        userService = CdiUtil.bean(UserService)
+    def searchForBvnUser(self, credentials):
         authenticationService = CdiUtil.bean(AuthenticationService)
-
+        identity = CdiUtil.bean(Identity)
         user_name = credentials.getUsername()
-        user_password = credentials.getPassword()
-
         logged_in = False
-        if StringHelper.isNotEmptyString(user_name) and StringHelper.isNotEmptyString(user_password):
-            logged_in = authenticationService.authenticate(user_name, user_password)
+        """
+        logInfo(
+            "searchForBvnUser: Trying to authn the user on Gluu. event_id: '%s' client_ref: '%s' bvn: '%s'" % (
+                identity.getSessionId().getId(), 
+                identity.getSessionId().getSessionAttributes().get("client_ref"), 
+                user_name
+                )
+        )
+        """
+        if StringHelper.isNotEmptyString(user_name):
+            logged_in = authenticationService.authenticate(user_name)
 
         if not logged_in:
+            logInfo(
+                "searchForBvnUser: Failed to authn the user on Gluu. event_id: '%s' client_ref: '%s' bvn: '%s'" % (
+                    identity.getSessionId().getId(), 
+                    identity.getSessionId().getSessionAttributes().get("client_ref"), 
+                    user_name
+                    )
+            )
             return None
 
         find_user_by_uid = authenticationService.getAuthenticatedUser()
         if find_user_by_uid == None:
-            print "OTP. Process basic authentication. Failed to find user '%s'" % user_name
+            logInfo(
+                "searchForBvnUser: Failed to find the user on Gluu. event_id: '%s' client_ref: '%s' bvn: '%s'" % (
+                    identity.getSessionId().getId(), 
+                    identity.getSessionId().getSessionAttributes().get("client_ref"), 
+                    user_name
+                    ),
+                LogCodes.LOGIN_SUCCESSFUL
+            )
             return None
-        
+        logInfo(
+            "searchForBvnUser: Successfully found the user on Gluu. event_id: '%s' client_ref: '%s' bvn: '%s'" % (
+                identity.getSessionId().getId(), 
+                identity.getSessionId().getSessionAttributes().get("client_ref"), 
+                user_name
+                )
+        )
         return find_user_by_uid
 
     def validateSessionId(self, identity):
@@ -1311,55 +1337,6 @@ class PersonAuthentication(PersonAuthenticationType):
 
     # Shared HOTP/TOTP methods
     # TOTP methods
-
-    def searchForBvnUser(self, credentials):
-        authenticationService = CdiUtil.bean(AuthenticationService)
-        identity = CdiUtil.bean(Identity)
-        user_name = credentials.getUsername()
-        user_password = credentials.getPassword()
-        print "Consent Script. Search on Flex for BVN userPWD: %s" % user_password
-        logged_in = False
-        """
-        logInfo(
-            "searchForBvnUser: Trying to authn the user on Gluu. event_id: '%s' client_ref: '%s' bvn: '%s'" % (
-                identity.getSessionId().getId(), 
-                identity.getSessionId().getSessionAttributes().get("client_ref"), 
-                user_name
-                )
-        )
-        """
-        if StringHelper.isNotEmptyString(user_name):
-            logged_in = authenticationService.authenticate(user_name)
-
-        if not logged_in:
-            logInfo(
-                "searchForBvnUser: Failed to authn the user on Gluu. event_id: '%s' client_ref: '%s' bvn: '%s'" % (
-                    identity.getSessionId().getId(), 
-                    identity.getSessionId().getSessionAttributes().get("client_ref"), 
-                    user_name
-                    )
-            )
-            return None
-
-        find_user_by_uid = authenticationService.getAuthenticatedUser()
-        if find_user_by_uid == None:
-            logInfo(
-                "searchForBvnUser: Failed to find the user on Gluu. event_id: '%s' client_ref: '%s' bvn: '%s'" % (
-                    identity.getSessionId().getId(), 
-                    identity.getSessionId().getSessionAttributes().get("client_ref"), 
-                    user_name
-                    ),
-                LogCodes.LOGIN_SUCCESSFUL
-            )
-            return None
-        logInfo(
-            "searchForBvnUser: Successfully found the user on Gluu. event_id: '%s' client_ref: '%s' bvn: '%s'" % (
-                identity.getSessionId().getId(), 
-                identity.getSessionId().getSessionAttributes().get("client_ref"), 
-                user_name
-                )
-        )
-        return find_user_by_uid
 
     # Utility methods
 #
