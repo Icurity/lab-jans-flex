@@ -823,7 +823,7 @@ class PersonAuthentication(PersonAuthenticationType):
             elif attr == "enroll_user_name":
                 user.setAttribute("preferredUsername", values)
            
-            elif attr == "nationality":
+            elif attr == "locality":
                 user.setAttribute("city", values)
 
             elif attr == "residential_address":
