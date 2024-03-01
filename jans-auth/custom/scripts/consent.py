@@ -824,7 +824,7 @@ class PersonAuthentication(PersonAuthenticationType):
                 user.setAttribute("preferredUsername", values)
            
             elif attr == "nationality":
-                user.setAttribute("l", values)
+                user.setAttribute("city", values)
 
             elif attr == "residential_address":
                 user.setAttribute("homePostalAddress", values)
