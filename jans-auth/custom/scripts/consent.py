@@ -122,7 +122,11 @@ def logError(message, code=None):
 
 class PersonAuthentication(PersonAuthenticationType):
     def __init__(self, currentTimeMillis):
+        """All the global variables used in this script"""
         self.currentTimeMillis = currentTimeMillis
+        self._city = None
+        self._country = None
+        self._remote_ip = None
 
     def init(self, customScript, configurationAttributes):
         print "Consent. Initialization"
