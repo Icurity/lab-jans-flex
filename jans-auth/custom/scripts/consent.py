@@ -627,7 +627,7 @@ class PersonAuthentication(PersonAuthenticationType):
 
         return True
 
-    def processOtpAuthentication(self, requestParameters, user_name, identity, otp_auth_method):
+    def processOtpAuthentication(self, requestParameters, identity):
         #facesMessages = CdiUtil.bean(FacesMessages)
         #facesMessages.setKeepMessages()
 
@@ -1062,7 +1062,7 @@ class PersonAuthentication(PersonAuthenticationType):
                 </p>"
             body += "</div></body> </html>"
             #sent = False
-            sent = mailService.sendMail(addy, subject, body, body);
+            sent = mailService.sendMail(addy, None, subject, body, body);
             if sent:
                 print "{\"logtype\":\"email_dispatch\",\"event_id\": \"%s\",\"client_ref\": \"'%s'\",\"status\":\"success\",\"client_id\": \"%s\",\"client_name\": \"%s\",\"remote_ip\": \"%s\",\"city\": \"%s\",\"country\": \"%s\",\"bvn\": \"%s\",\"timestamp\":\"%s\"}" % (
                     identity.getSessionId().getId(), 
