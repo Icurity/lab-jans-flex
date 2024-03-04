@@ -56,7 +56,108 @@
                                         client.getClientName()? client.getClientId() : client.getClientName()}</div>
                                 </div>
 
+                         </div>
+
+        <div class="flex flex-col justify-center items-center mt-12 p-6 mb-3">
+                    <div class="flex flex-row items-center">
+                        <div class="flex items-center justify-center rounded-full w-7 h-7 font-bold bg-primary text-white">
+                            <svg viewbox="0 0 13.5 10.2" height="14" width="14">
+                                <path fill="#FFF" d="M4.6,9.9L0.3,5.5C0,5.3,0,4.8,0.3,4.6l0.9-0.9c0.3-0.3,0.7-0.3,0.9,0l2.9,2.9l6.3-6.3C11.6,0,12,0,12.3,0.3l0.9,0.9c0.3,0.3,0.3,0.7,0,0.9L5.6,9.9C5.3,10.1,4.9,10.1,4.6,9.9z"></path>
+                            </svg>
                         </div>
+                        <div class="w-28 h-1 relative">
+                            <div class="bg-primary-light w-full h-full"></div>
+                            <div class="absolute bg-primary w-full h-full inset-0"></div>
+                        </div>
+                        <div class="flex items-center justify-center rounded-full w-7 h-7 font-bold bg-primary text-white">
+                             <svg viewBox="0 0 13.5 10.2" height="14" width="14">
+                                            <path fill="#FFF"
+                                                d="M4.6,9.9L0.3,5.5C0,5.3,0,4.8,0.3,4.6l0.9-0.9c0.3-0.3,0.7-0.3,0.9,0l2.9,2.9l6.3-6.3C11.6,0,12,0,12.3,0.3l0.9,0.9c0.3,0.3,0.3,0.7,0,0.9L5.6,9.9C5.3,10.1,4.9,10.1,4.6,9.9z">
+                                            </path>
+                                        </svg>
+                        </div>
+                        <div class="w-28 h-1 relative">
+                            <div class="bg-primary-light w-full h-full"></div>
+			    <div class="absolute bg-primary w-full h-full inset-0"></div>
+                        </div>
+                        
+                        <div class="flex items-center justify-center rounded-full w-7 h-7 font-bold bg-primary text-white">
+                             <svg viewBox="0 0 13.5 10.2" height="14" width="14">
+                                            <path fill="#FFF"
+                                                d="M4.6,9.9L0.3,5.5C0,5.3,0,4.8,0.3,4.6l0.9-0.9c0.3-0.3,0.7-0.3,0.9,0l2.9,2.9l6.3-6.3C11.6,0,12,0,12.3,0.3l0.9,0.9c0.3,0.3,0.3,0.7,0,0.9L5.6,9.9C5.3,10.1,4.9,10.1,4.6,9.9z">
+                                            </path>
+                                        </svg>
+                                </div>
+                        </div>
+                </div>
+
+                                <div class="mt-4 md:mt-20">
+                                        <div style="font-size: 14px; font-weight: 100;" class="text-2xl md:text-3xl text-silver font-normal text-center">
+                                                <span style="color:#9e7d09;" class="text-primary font-normal">#{empty client.getClientName()?
+                                                        client.getClientId() : client.getClientName()} </span>
+                                                <h:outputFormat value="is requesting to view and download your information">
+
+                                        </h:outputFormat>
+                                        </div>
+
+                                </div>
+
+                        </div>
+
+                        <style>
+                                    @media(min-width:639px) {
+                                        .max-width-639 {
+                                            padding: 0 0 0 64px;
+                                        }
+                                    }
+
+                                    @media(max-width:767px) {
+                                        #accordion {
+                                            width: 100%;
+                                        }
+
+                                        h1 {
+                                            font-size: 24px !important;
+                                        }
+
+                                        .btn_rw.mt-8 {
+                                            padding: 14px 0px;
+                                        }
+
+                                    }
+
+                                    @media(min-width:768px) {
+                                        #accordion {
+                                            width: 670px;
+                                        }
+
+                                        h1 {
+                                            font-size: 30px !important;
+                                        }
+                                    }
+				.w-28{
+				width: 110px!important;	
+				}
+				.w-7{
+				width: 35px!important;
+				height: 35px!important;
+				}
+				@media (max-width: 767px){
+				 .w-28{
+			        width: 95px!important;
+			        }
+				}
+
+ 				input#authorizeForm\:doNotAllowButton{
+				background: #fff;
+                                border: 1px solid #105b42;
+				font-size: 20px;
+				}
+				input#authorizeForm\:allowButton{
+				font-size: 20px;
+				}	
+                        </style>
+
                                 <div class="not_body">
                                         <h3>
                                                 <h:outputText value="#{msgs['authorize.requestForPermission']}" />
@@ -163,7 +264,7 @@
                                         #{msgs['common.copyright']} <a href="http://www.gluu.org">Gluu</a>.
                                         #{msgs['common.allRightsReserved']}
                                 </center>
-                           </div>
+                        
                 </div>
                 </h:form>
             </h:panelGroup>
