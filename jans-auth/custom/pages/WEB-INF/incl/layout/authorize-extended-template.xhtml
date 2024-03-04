@@ -103,7 +103,7 @@
                                 </div>
 
                         </div>
-                        <ui:fragment rendered="#{_scopes != null or _request != null}">
+                <ui:fragment rendered="#{_scopes != null or _request != null}">
                         <style>
                                     @media(min-width:639px) {
                                         .max-width-639 {
@@ -157,6 +157,7 @@
 				font-size: 20px;
 				}	
                         </style>
+                        
                         <div class="panel-group" id="accordion" style="max-width:100%;">
                                 <ui:repeat var="_scope" value="#{_scopes}">
                                     <!-- The following should be the basis of gluu fixing the claim name issue
@@ -231,23 +232,7 @@
 
                             </div>
                         
-                            <ui:fragment rendered="#{_request != null}">
-                                    <li>
-                                        <table>
-                                            <tr>
-                                                <td>
-                                                    <span class="user" style="color:#28a745 !important">
-                                                        <i class="fa fa-check-circle"></i>
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    <h:outputText value="#{_request}" />
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </li>
-                                </ui:fragment>
-
+                            
                         </ui:fragment>
                                 <div class="not_body">
                                         <h3>
