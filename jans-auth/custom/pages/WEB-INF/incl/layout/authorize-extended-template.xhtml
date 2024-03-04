@@ -103,7 +103,7 @@
                                 </div>
 
                         </div>
-                <ui:fragment rendered="#{_scopes != null or _request != null}">
+
                         <style>
                                     @media(min-width:639px) {
                                         .max-width-639 {
@@ -157,7 +157,6 @@
 				font-size: 20px;
 				}	
                         </style>
-                        
                         <div class="panel-group" id="accordion" style="max-width:100%;">
                                 <ui:repeat var="_scope" value="#{_scopes}">
                                     <!-- The following should be the basis of gluu fixing the claim name issue
@@ -231,9 +230,7 @@
                                 </ui:repeat>
 
                             </div>
-                        
                             
-                        </ui:fragment>
                                 <div class="not_body">
                                         <h3>
                                                 <h:outputText value="#{msgs['authorize.requestForPermission']}" />
