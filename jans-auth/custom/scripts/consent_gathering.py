@@ -4,12 +4,12 @@
 # Author: Yuriy Movchan
 #
 
+from io.jans.model.custom.script.type.authz import ConsentGatheringType
 from jakarta.faces.application import FacesMessage
 from io.jans.jsf2.message import FacesMessages
 from java.util import  HashSet, ArrayList, Arrays
 from io.jans.as.server.security import Identity
 from io.jans.service.cdi.util import CdiUtil
-from io.jans.model.custom.script.type.authz import ConsentGatheringType
 from io.jans.util import StringHelper
 from io.jans.as.server.service import SessionIdService, ScopeService, AttributeService
 
@@ -199,7 +199,7 @@ class ConsentGathering(ConsentGatheringType):
 
     def getPageForStep(self, step, context):
         if step == 1:
-            return "/authz/authorize.xhtml"
+            return "/auth/authorize.xhtml"
         elif step == 2:
             return "/authz/transaction.xhtml"
 

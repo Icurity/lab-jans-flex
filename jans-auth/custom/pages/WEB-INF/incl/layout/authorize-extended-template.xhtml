@@ -5,378 +5,139 @@
         xmlns:f="http://xmlns.jcp.org/jsf/core"
         xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
         xmlns:h="http://xmlns.jcp.org/jsf/html"
-        xmlns:c="http://java.sun.com/jsp/jstl/core" 
-        xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions" 
-        template="/WEB-INF/incl/layout/nibss-authorize-template.xhtml">
+        template="/WEB-INF/incl/layout/authorize-template.xhtml">
 
         <ui:define name="head">
                 <style type="text/css"/>
         </ui:define>
 
         <ui:define name="pageTitle">
-        <h:outputText value="BVNID - Consent" />
-    </ui:define>
-    <ui:param name="showform" value="false" />
-    <ui:define name="body">
-<ui:include src="/ext/google-analytics.xhtml" />
-        <div style="padding: 0px;" class="container">
-            <h:panelGroup id="loginGroup">
-                <h:form id="authorizeForm" rendered="#{!empty _scopes}">
-                    <h:inputHidden id="session_id" value="#{authorizeAction.sessionId}" />
-                    <ui:param name="client" value='#{_client}' />
-                    <div class="flex flex-col items-center" >
+            <h:outputText value="BVNID - Consent" />
+        </ui:define>
 
-<!--<div style="position: absolute; left: 5%; top:3%;" class="text-silver" onclick="history.back()"><i class="fa fa-chevron-left"></i></div>
-<div style="position: absolute; right: 5%; top:3%;" class="text-silver"><i class="fa fa-close"></i></div>-->
-                        <div class="flex flex-col justify-center p-6" >
-
-                            <div class="flex flex-col text-center items-center p-6">
-                                <div class="flex flex-row items-center mt-4">
-                                    <div class="w-[100px] md:w-[150px]">
-
-                                        <span
-                                            style="box-sizing: border-box; display: inline-block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative; max-width: 100%;"><span
-                                                style="box-sizing: border-box; display: block; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; max-width: 100%;"><img
-                                                    src="#{request.contextPath}/servlet/logo" /></span></span>
-                                        <div style="font-size: 16px;" class="text-midnight font-bold mt-6">NIBSS Plc
+        <ui:define name="body" class="notification_cls">
+                <h:form id="authorizeForm">
+                        <h:inputHidden id="session_id" value="#{authorizeAction.sessionId}" />
+                        <ui:param name="client" value='#{_client}' />
+                        <div class="notification_popup">
+                                <div class="not_header"></div>
+                                <div class="not_header">
+                                        <div>
+                                                <div class="login-logo">
+                                                        <img style="max-height: 70px; padding-bottom: 2px;" id="AppLogo"
+                                                                src="#{request.contextPath}/servlet/logo" />
+                                                </div>
+                                                <div class="bs-docs-section"
+                                                        style="border-top: 2px solid #1ab26b !important; margin-bottom: 5px !important; margin-top: 1px !important; padding-top: 1px !important;"></div>
                                         </div>
-                                    </div>
-                                    <div class="mx-10 md:mx-16">
-                                        <svg viewBox="0 0 115.9 49.8" height="50" width="50">
-                                            <path fill="#9D7C13"
-                                                d="M30.3,44.4V34h55.1v10.4c0,3,2.4,5.4,5.4,5.4c1.4,0,2.8-0.6,3.8-1.6 l19.4-19.4c2.1-2.1,2.1-5.5,0-7.7c0,0,0,0,0,0L94.7,1.6c-2.1-2.1-5.6-2.1-7.7,0c-1,1-1.6,2.4-1.6,3.8v10.4H30.3V5.5 c0-3-2.4-5.4-5.4-5.4c-1.4,0-2.8,0.6-3.8,1.6L1.6,21.1c-2.1,2.1-2.1,5.5,0,7.7c0,0,0,0,0,0l19.4,19.4c2.1,2.1,5.5,2.1,7.7,0 C29.8,47.2,30.3,45.8,30.3,44.4z">
-                                            </path>
-                                        </svg>
-                                    </div>
-                                    <div class="flex flex-col text-center items-center">
-
-                                        <h:panelGroup layout="block" class="flex flex-col items-center"
-                                            rendered='#{!empty client.getLogoUri()}'>
-                                            <h:graphicImage url='#{client.getLogoUri()}' width="65px" height="65px" />
-
+                                </div>
+                                <div class="not_body">
+                                        <h3>
+                                                <h:outputText value="#{msgs['authorize.requestForPermission']}" />
+                                        </h3>
+                                        <h:panelGroup layout="block" class="border_rad"
+                                                rendered='#{!empty client.getLogoUri()}'>
+                                                <h:graphicImage url='#{client.getLogoUri()}' width="65px"
+                                                        height="65px" />
                                         </h:panelGroup>
-                                        <div style="font-size: 16px;" class="text-midnight font-bold mt-6">#{empty
-                                            client.getClientName()? client.getClientId() : client.getClientName()}</div>
-                                    </div>
-                                </div>
 
-<div class="flex flex-col justify-center items-center mt-12 p-6 mb-3">
-                    <div class="flex flex-row items-center">
-                        <div class="flex items-center justify-center rounded-full w-7 h-7 font-bold bg-primary text-white">
-                            <svg viewbox="0 0 13.5 10.2" height="14" width="14">
-                                <path fill="#FFF" d="M4.6,9.9L0.3,5.5C0,5.3,0,4.8,0.3,4.6l0.9-0.9c0.3-0.3,0.7-0.3,0.9,0l2.9,2.9l6.3-6.3C11.6,0,12,0,12.3,0.3l0.9,0.9c0.3,0.3,0.3,0.7,0,0.9L5.6,9.9C5.3,10.1,4.9,10.1,4.6,9.9z"></path>
-                            </svg>
-                        </div>
-                        <div class="w-28 h-1 relative">
-                            <div class="bg-primary-light w-full h-full"></div>
-                            <div class="absolute bg-primary w-full h-full inset-0"></div>
-                        </div>
-                        <div class="flex items-center justify-center rounded-full w-7 h-7 font-bold bg-primary text-white">
-                             <svg viewBox="0 0 13.5 10.2" height="14" width="14">
-                                            <path fill="#FFF"
-                                                d="M4.6,9.9L0.3,5.5C0,5.3,0,4.8,0.3,4.6l0.9-0.9c0.3-0.3,0.7-0.3,0.9,0l2.9,2.9l6.3-6.3C11.6,0,12,0,12.3,0.3l0.9,0.9c0.3,0.3,0.3,0.7,0,0.9L5.6,9.9C5.3,10.1,4.9,10.1,4.6,9.9z">
-                                            </path>
-                                        </svg>
-                        </div>
-                        <div class="w-28 h-1 relative">
-                            <div class="bg-primary-light w-full h-full"></div>
-			    <div class="absolute bg-primary w-full h-full inset-0"></div>
-                        </div>
-                        <!--<div class="flex bvn-input-page items-center justify-center rounded-full w-7 h-7 font-bold bg-primary-light text-primary">
-                            <div class="pt-1">3</div>
-                        </div>-->
-<div class="flex items-center justify-center rounded-full w-7 h-7 font-bold bg-primary text-white">
-                             <svg viewBox="0 0 13.5 10.2" height="14" width="14">
-                                            <path fill="#FFF"
-                                                d="M4.6,9.9L0.3,5.5C0,5.3,0,4.8,0.3,4.6l0.9-0.9c0.3-0.3,0.7-0.3,0.9,0l2.9,2.9l6.3-6.3C11.6,0,12,0,12.3,0.3l0.9,0.9c0.3,0.3,0.3,0.7,0,0.9L5.6,9.9C5.3,10.1,4.9,10.1,4.6,9.9z">
-                                            </path>
-                                        </svg>
-                        </div>
-                    </div>
-                </div>
-
-                                <div class="mt-4 md:mt-20">
-                                    <div style="font-size: 14px; font-weight: 100;" class="text-2xl md:text-3xl text-silver font-normal text-center">
-                                        <span style="color:#9e7d09;" class="text-primary font-normal">#{empty client.getClientName()?
-                                            client.getClientId() : client.getClientName()} </span>
-                                        <h:outputFormat value="is requesting to view and download your information">
-
-                                        </h:outputFormat>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <ui:fragment rendered="#{_scopes != null or _request != null}">
-
-                                <style>
-                                    @media(min-width:639px) {
-                                        .max-width-639 {
-                                            padding: 0 0 0 64px;
-                                        }
-                                    }
-
-                                    @media(max-width:767px) {
-                                        #accordion {
-                                            width: 100%;
-                                        }
-
-                                        h1 {
-                                            font-size: 24px !important;
-                                        }
-
-                                        .btn_rw.mt-8 {
-                                            padding: 14px 0px;
-                                        }
-
-                                    }
-
-                                    @media(min-width:768px) {
-                                        #accordion {
-                                            width: 670px;
-                                        }
-
-                                        h1 {
-                                            font-size: 30px !important;
-                                        }
-                                    }
-				.w-28{
-				width: 110px!important;	
-				}
-				.w-7{
-				width: 35px!important;
-				height: 35px!important;
-				}
-				@media (max-width: 767px){
-				 .w-28{
-			        width: 95px!important;
-			        }
-				}
-
- 				input#authorizeForm\:doNotAllowButton{
-				background: #fff;
-                                border: 1px solid #105b42;
-				font-size: 20px;
-				}
-				input#authorizeForm\:allowButton{
-				font-size: 20px;
-				}	
-                                </style>
-                                <div class="panel-group" id="accordion" style="max-width:100%;">
-                                    <ui:repeat var="_scope" value="#{_scopes}">
-                                        <!-- The following should be the basis of gluu fixing the claim name issue
-                                        <ui:param name="_requestedClaims" value="#{_scope.oxAuthClaims}" />
-                                        <ui:repeat var="attrib" value="#{_requestedClaims}">
-                                            -> <h:outputText value="#{attrib}" />
-                                            <h:outputText
-                                                value="#{scopeService.attributeService.getAttributeByDn(attrib).getDescription()}" />
-                                        </ui:repeat>
-                                    -->
-                                        <div class="panel panel-default"
-                                            style="margin: 0 2% 4% 2%; background-color:#ffffff;border:1px solid #27AE60;border-radius: 10px;">
-                                            <a style="display:block" data-toggle="collapse" data-parent="#accordion"
-                                                href="#collapse#{_scope.inum}" aria-expanded="true">
-                                                <div class="w-full max-w-2xll">
-                                                    <div
-                                                        class="odd:bg-white sm:bg-white text-midnight sm:mb-5 last-of-type:sm-0 p-6 border-y border-gray sm:rounded-xl cursor-pointer sm:border-2 sm:border-transparent transition-all sm:ease-in-out ">
-                                                        <div class="flex flex-row items-center justify-between">
-                                                            <div class="flex flex-row items-center">
-                                                                <div class="bg-primary p-2 rounded-full"
-                                                                    style="color: #2c5703;display: none;">
-                                                                    <svg viewBox="0 0 13.5 10.2" height="22" width="22">
-                                                                        <path fill="white"
-                                                                            d="M4.6,9.9L0.3,5.5C0,5.3,0,4.8,0.3,4.6l0.9-0.9c0.3-0.3,0.7-0.3,0.9,0l2.9,2.9l6.3-6.3C11.6,0,12,0,12.3,0.3l0.9,0.9c0.3,0.3,0.3,0.7,0,0.9L5.6,9.9C5.3,10.1,4.9,10.1,4.6,9.9z">
-                                                                        </path>
-                                                                    </svg>
-                                                                </div>
-                                                                <div class="ml-4 md:ml-6">#{_scope.description}</div>
-                                                            </div>
-                                                            <div class="ml-6">
-<div style="border-radius: 50%; border: 1px solid #6fcf97; padding: 9px 12px; width: 35px; height: 35px;">
-<i class="fa fa-chevron-right" style=" font-size: 16px; font-weight: 100; color: #6fcf97;"></i>
-</div>
-                                                                <!--<div class="rotate-90 transition-transform ease-in-out">
-                                                                    <svg viewBox="0 0 125.5 206.5" height="20"
-                                                                        width="20">
-                                                                        <path fill="#2C5702"
-                                                                            d="M122.1,111.3l-91.9,91.9c-4.4,4.4-11.6,4.4-16,0c0,0,0,0,0,0 L3.4,192.4c-4.4-4.4-4.4-11.6,0-16l72.8-73.2L3.4,30.1c-4.4-4.4-4.4-11.6,0-16L14.1,3.3c4.4-4.4,11.6-4.4,16,0c0,0,0,0,0,0 l91.9,91.9C126.5,99.7,126.5,106.8,122.1,111.3C122.1,111.3,122.1,111.3,122.1,111.3z">
-                                                                        </path>
-                                                                    </svg>
-                                                                </div>-->
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-
-                                            <div id="collapse#{_scope.inum}" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    <ul class="ub_list"> 
-                                                        <ui:repeat var="claim" value="#{fn:split(consentGatherer.getContext().getSessionAttributes().get(_scope.displayName),',')}">
-                                                        <li class = "msg_list">
-                                                                <div style = "width: auto" class = "fl_bx">
-                                                                   <section>
-                                                                    <span style="font-size: 11px !important; color: inherit">
-                                                                        <h:outputText value="#{claim}" />
-                    
-                                                                    </span>
-                                                                    </section>
-                                                                </div>
-                                                            </li>
-                                                            </ui:repeat>
-                                                        </ul>
-                                                   
-
-                                                </div>
-                                            </div>
+                                        <h3>
+                                                <p class="info">
+                                                        <h:outputFormat
+                                                                value="#{msgs['authorize.requestingPermissionForScopes']}">
+                                                                <f:param
+                                                                        value="#{empty client.getClientName()? client.getClientId() : client.getClientName()}" />
+                                                        </h:outputFormat>
+                                                </p>
+                                        </h3>
+                                        <ul>
+                                                <ui:fragment rendered="#{_scopes != null or _request != null}">
+                                                        <ui:repeat var="_scope" value="#{_scopes}">
+                                                                <li>
+                                                                        <table>
+                                                                                <tr>
+                                                                                        <td><span class="user"><i
+                                                                                                        class="fa fa-user-circle"></i></span></td>
+                                                                                        <td><h:outputText value="#{_scope.description}" /></td>
+                                                                                </tr>
+                                                                        </table>
+                                                                </li>
+                                                        </ui:repeat>
+                                                        <ui:repeat var="_requestedClaim" value="#{_requestedClaims}">
+                                                                <li>
+                                                                        <table>
+                                                                                <tr>
+                                                                                        <td><span class="user"><i
+                                                                                                        class="fa fa-user-circle"></i></span></td>
+                                                                                        <td><h:outputFormat
+                                                                                                        value="#{msgs['authorize.viewIndividualClaim']}">
+                                                                                                        <f:param value="#{_requestedClaim}" />
+                                                                                                </h:outputFormat></td>
+                                                                                </tr>
+                                                                        </table>
+                                                                </li>
+                                                        </ui:repeat>
+                            <ui:repeat var="_authzDetail" value="#{_authzDetails}">
+                                <li>
+                                    <table>
+                                        <tr>
+                                            <td><span class="user"><i
+                                                    class="fa fa-user-circle"></i></span></td>
+                                            <td><h:outputFormat value="#{_authzDetail.uiRepresentation}"/></td>
+                                        </tr>
+                                    </table>
+                                </li>
+                            </ui:repeat>
+                                                        <ui:fragment rendered="#{_request != null}">
+                                                                <li>
+                                                                        <table>
+                                                                                <tr>
+                                                                                        <td><span class="user"><i
+                                                                                                        class="fa fa-user-circle"></i></span></td>
+                                                                                        <td><h:outputText value="#{_request}" /></td>
+                                                                                </tr>
+                                                                        </table>
+                                                                </li>
+                                                        </ui:fragment>
+                                                </ui:fragment>
+                                        </ul>
+                                        <h:panelGroup layout="block"
+                                                                  rendered="#{!empty authorizeAction.bindingMessage}">
+                                                <p>
+                                                        #{msgs['ciba.bindingMessage']}
+                                                        <strong>
+                                                                #{authorizeAction.bindingMessage}
+                                                        </strong>
+                                                </p>
+                                        </h:panelGroup>
+                                        <h:panelGroup layout="block"
+                                                rendered='#{!empty client.getPolicyUri()}'>
+                                                <p>
+                                                        <h:outputText value="#{msgs['common.agreePolicy']}" />
+                                                        <a target="_blank" href='#{client.getPolicyUri()}'> <h:outputText
+                                                                        value="#{msgs['common.privacyPolicy']}" />
+                                                        </a>
+                                                </p>
+                                        </h:panelGroup>
+                                        <h:panelGroup layout="block"
+                                                rendered='#{!empty client.getTosUri()}'>
+                                                <p>
+                                                        <h:outputText value="#{msgs['common.pleaseReadTheTos']}" />
+                                                        <a target="_blank" href='#{client.getTosUri()}'> <h:outputText
+                                                                        value="#{msgs['common.termsOfService']}" />
+                                                        </a>
+                                                </p>
+                                        </h:panelGroup>
+                                        <div class="btn_rw">
+                                                <ui:insert name="controlButttons" />
                                         </div>
-
-
-                                    </ui:repeat>
-
                                 </div>
-
-
-                                <ui:fragment rendered="#{_request != null}">
-                                    <li>
-                                        <table>
-                                            <tr>
-                                                <td>
-                                                    <span class="user" style="color:#28a745 !important">
-                                                        <i class="fa fa-check-circle"></i>
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    <h:outputText value="#{_request}" />
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </li>
-                                </ui:fragment>
-                            </ui:fragment>
-                            <h:panelGroup layout="block" rendered="#{!empty authorizeAction.bindingMessage}">
-                                <p>
-                                    #{msgs['ciba.bindingMessage']}
-                                    <strong>
-                                        #{authorizeAction.bindingMessage}
-                                    </strong>
-                                </p>
-                            </h:panelGroup>
-
-                            <div class="btn_rw mt-8">
-
-                                <h:commandButton id="doNotAllowButton"
-                                    styleClass="button rounded-xl py-4 px-10 mt-8 bg-primary-light text-primary border-2 border-transparent hover:border-primary hover:bg-primary-light hover:text-primary  self-center min-w-[170px] min-h-[60px] duration-300 ease-in-out transition-all hover:-translate-y-1 hover:drop-shadow-xl"
-                                    value="#{msgs['authorize.doNotAllow']}" action="#{consentGatherer.authorize}"
-                                    onclick="javascript:return validate(false)" />
-                                <p id="doNotAllowButton_b"
-                                    style="margin-inline-start: 37%; display:none; padding-top:2rem;padding-bottom:1rem;max-width: 170px;max-height: 60px;min-height: 60px;font-weight: bold;"
-                                    class="button rounded-full py-4 px-10 mt-8 bg-primary-light text-primary border-primary -translate-y-1 self-center min-w-[170px]">
-                                    <i class="fa fa-spinner fa-spin"></i> Don't Allow...</p>
-                                &nbsp;
-                                <h:commandButton id="allowButton"
-                                    styleClass="button rounded-xl py-4 px-10 mt-8 bg-primary text-white border-2 border-transparent hover:border-primary hover:bg-primary-light hover:text-primary  self-center min-w-[170px] min-h-[60px] duration-300 ease-in-out transition-all hover:-translate-y-1 hover:drop-shadow-xl"
-                                    value="#{msgs['authorize.allow']}" action="#{consentGatherer.authorize}"
-                                    onclick="javascript:return validate(true)" />
-
-                                <p id="allowButton_b"
-                                    style="margin-inline-start: 37%; display:none; padding-top:2rem;padding-bottom:1rem;max-width: 170px;max-height: 60px;min-height: 60px;font-weight: bold;"
-                                    class="button rounded-full py-4 px-10 mt-8 bg-primary-light text-primary border-primary -translate-y-1 self-center min-w-[170px]">
-                                    <i class="fa fa-spinner fa-spin"></i> Allow...</p>
-                            </div>
-                            <div style="display: none;" class="flex flex-col justify-center items-center p-6 mb-6">
-                                <div class="flex flex-row items-center">
-                                    <div
-                                        class="flex items-center justify-center rounded-full w-7 h-7 font-bold bg-primary text-white">
-                                        <svg viewBox="0 0 13.5 10.2" height="14" width="14">
-                                            <path fill="#FFF"
-                                                d="M4.6,9.9L0.3,5.5C0,5.3,0,4.8,0.3,4.6l0.9-0.9c0.3-0.3,0.7-0.3,0.9,0l2.9,2.9l6.3-6.3C11.6,0,12,0,12.3,0.3l0.9,0.9c0.3,0.3,0.3,0.7,0,0.9L5.6,9.9C5.3,10.1,4.9,10.1,4.6,9.9z">
-                                            </path>
-                                        </svg>
-                                    </div>
-                                    <div class="w-5 h-1 relative">
-                                        <div class="bg-primary-light w-full h-full">
-
-                                        </div>
-                                        <div class="absolute bg-primary w-full h-full inset-0"></div>
-                                    </div>
-                                    <div
-                                        class="flex items-center justify-center rounded-full w-7 h-7 font-bold bg-primary text-white">
-                                        <svg viewBox="0 0 13.5 10.2" height="14" width="14">
-                                            <path fill="#FFF"
-                                                d="M4.6,9.9L0.3,5.5C0,5.3,0,4.8,0.3,4.6l0.9-0.9c0.3-0.3,0.7-0.3,0.9,0l2.9,2.9l6.3-6.3C11.6,0,12,0,12.3,0.3l0.9,0.9c0.3,0.3,0.3,0.7,0,0.9L5.6,9.9C5.3,10.1,4.9,10.1,4.6,9.9z">
-                                            </path>
-                                        </svg>
-                                    </div>
-                                    <div class="w-5 h-1 relative">
-                                        <div class="bg-primary-light w-full h-full">
-
-                                        </div>
-                                        <div class="absolute bg-primary w-1/2 h-full inset-0"></div>
-                                    </div>
-                                    <div
-                                        class="flex items-center justify-center rounded-full w-7 h-7 font-bold bg-primary-light text-primary">
-                                        <div class="pt-1">3</div>
-                                    </div>
-                                </div>
-                                <div class="flex flex-row mt-4 mb-4">
-
-                                    <a target="_blank" href="#{client.getPolicyUri()}">
-                                        <span class="text-primary font-bold">
-                                            <h:outputText value="#{msgs['common.privacyPolicy']}" escape="false" />
-                                        </span>
-                                    </a>
-
-                                    <div class="w-8">
-
-                                    </div>
-
-                                    <a target="_blank" href="#{client.getTosUri()}">
-                                        <span class="text-primary font-bold">
-                                            <h:outputText value="#{msgs['common.termsOfService']}" escape="false" />
-                                        </span>
-                                    </a>
-
-                                </div>
-
-                            </div>
+                                <center>
+                                        #{msgs['common.copyright']} <a href="http://www.gluu.org">Gluu</a>.
+                                        #{msgs['common.allRightsReserved']}
+                                </center>
                         </div>
-                    </div>
-                    <script type="text/javascript">
-			window.sessionStorage.setItem('clicked_option', null);
-                        let text = {};
-                        const fruits = '${consentGatherer.getContext().getSessionAttributes().get('_scope.displayName')}';
-                        console.log(fruits);
-
-                        document.getElementById("demo").innerHTML = text;
-
-                        function myFunction(item, index) {
-                            text += item;
-                            //console.log(text);
-                        }
-                    </script>
-                    <script type="text/javascript">
-                        window.onload = function () {
-                            var otpCodeField = document.getElementById("loginForm:otpCode");
-                            otpCodeField.focus();
-                            const fruits = '${consentGatherer.getContext().getSessionAttributes().get('_scope.displayName')}';
-                            console.log(fruits);
-
-                        };
-                    </script>
-                    <script type="text/javascript">
-                        function validate(arg) {
-                            document.getElementById("authorizeForm:allowButton").style.display = "none";
-                            document.getElementById("authorizeForm:doNotAllowButton").style.display = "none";
-                            if (arg) {
-                                document.getElementById("allowButton_b").style.display = "block";
-                            } else {
-                                document.getElementById("doNotAllowButton_b").style.display = "block";
-                            }
-                            return true;
-                        }
-                    </script>
                 </h:form>
-            </h:panelGroup>
-        </div>
-    </ui:define>
+        </ui:define>
+
 </ui:composition>
