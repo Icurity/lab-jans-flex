@@ -23,17 +23,19 @@
                 <h:form id="authorizeForm">
                         <h:inputHidden id="session_id" value="#{authorizeAction.sessionId}" />
                         <ui:param name="client" value='#{_client}' />
-                        <div class="notification_popup">
-                                <div class="not_header"></div>
-                                <div class="not_header">
-                                        <div>
-                                                <div class="login-logo">
-                                                        <img style="max-height: 70px; padding-bottom: 2px;" id="AppLogo"
-                                                                src="#{request.contextPath}/servlet/logo" />
-                                                </div>
-                                                <div class="bs-docs-section"
-                                                        style="border-top: 2px solid #1ab26b !important; margin-bottom: 5px !important; margin-top: 1px !important; padding-top: 1px !important;"></div>
+                        
+                        <div class="flex flex-col items-center" >
+                                <div class="flex flex-col justify-center p-6" >
+                                <div class="flex flex-row items-center mt-4">
+                                <div class="w-[100px] md:w-[150px]">
+                                        
+                                        <span
+                                            style="box-sizing: border-box; display: inline-block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative; max-width: 100%;"><span
+                                                style="box-sizing: border-box; display: block; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; max-width: 100%;"><img
+                                                src="#{request.contextPath}/servlet/logo" /></span></span>
+                                        <div style="font-size: 16px;" class="text-midnight font-bold mt-6">NIBSS Plc
                                         </div>
+    
                                 </div>
                                 <div class="not_body">
                                         <h3>
@@ -136,11 +138,13 @@
                                                 <ui:insert name="controlButttons" />
                                         </div>
                                 </div>
+                        </div>
                                 <center>
                                         #{msgs['common.copyright']} <a href="http://www.gluu.org">Gluu</a>.
                                         #{msgs['common.allRightsReserved']}
                                 </center>
-                        </div>
+                           </div>
+                </div>
                 </h:form>
             </h:panelGroup>
         </div>
