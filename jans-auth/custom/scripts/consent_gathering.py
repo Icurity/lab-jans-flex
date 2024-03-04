@@ -6,7 +6,6 @@
 
 from jakarta.faces.application import FacesMessage
 from io.jans.jsf2.message import FacesMessages
-from java.util import Arrays
 from java.util import  HashSet, ArrayList, Arrays
 from io.jans.as.server.security import Identity
 from io.jans.service.cdi.util import CdiUtil
@@ -200,7 +199,7 @@ class ConsentGathering(ConsentGatheringType):
 
     def getPageForStep(self, step, context):
         if step == 1:
-            return "/ext/authorize.xhtml"
+            return "/authz/authorize.xhtml"
         elif step == 2:
             return "/authz/transaction.xhtml"
 
