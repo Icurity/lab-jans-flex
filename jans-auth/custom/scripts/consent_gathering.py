@@ -199,7 +199,7 @@ class ConsentGathering(ConsentGatheringType):
 
     def getPageForStep(self, step, context):
         if step == 1:
-            return "/auth/authorize.xhtml"
+            return "/authz/authorize.xhtml"
         elif step == 2:
             return "/authz/transaction.xhtml"
 
