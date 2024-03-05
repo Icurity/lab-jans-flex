@@ -212,12 +212,12 @@
                                                                             <div id="collapse#{_scope.inum}" class="panel-collapse collapse">
                                                                                 <div class="panel-body">
                                                                                     <ul class="ub_list"> 
-                                                                                        <ui:repeat var="_requestedClaim" value="#{fn:split(consentGatherer.getContext().getSessionAttributes().get(_scope.displayName),',')}">
+                                                                                        <ui:repeat var="claim" value="#{fn:split(consentGatherer.getContext().getSessionAttributes().get(_scope.displayName),',')}">
                                                                                         <li class = "msg_list">
                                                                                                 <div style = "width: auto" class = "fl_bx">
                                                                                                    <section>
                                                                                                     <span style="font-size: 11px !important; color: inherit">
-                                                                                                        <h:outputText value="#{_requestedClaim}" />
+                                                                                                        <h:outputText value="#{claim}" />
                                                     
                                                                                                     </span>
                                                                                                     </section>
@@ -246,7 +246,7 @@
                                                                         </table>
                                                                 </li>
                                                         </ui:repeat>  -->
-                            <ui:repeat var="_authzDetail" value="#{_authzDetails}">
+                           <!-- <ui:repeat var="_authzDetail" value="#{_authzDetails}">
                                 <li>
                                     <table>
                                         <tr>
@@ -256,7 +256,7 @@
                                         </tr>
                                     </table>
                                 </li>
-                            </ui:repeat>
+                            </ui:repeat> -->
                                                         <ui:fragment rendered="#{_request != null}">
                                                                 <li>
                                                                         <table>
@@ -283,8 +283,27 @@
 
                                         <div class="btn_rw mt-8">
 
+                                            <h:commandButton id="doNotAllowButton"
+                                            styleClass="button rounded-xl py-4 px-10 mt-8 bg-primary-light text-primary border-2 border-transparent hover:border-primary hover:bg-primary-light hover:text-primary  self-center min-w-[170px] min-h-[60px] duration-300 ease-in-out transition-all hover:-translate-y-1 hover:drop-shadow-xl"
+                                            value="#{msgs['authorize.doNotAllow']}" action="#{consentGatherer.authorize}"
+                                            onclick="javascript:return validate(false)" />
+                                            <p id="doNotAllowButton_b"
+                                            style="margin-inline-start: 37%; display:none; padding-top:2rem;padding-bottom:1rem;max-width: 170px;max-height: 60px;min-height: 60px;font-weight: bold;"
+                                            class="button rounded-full py-4 px-10 mt-8 bg-primary-light text-primary border-primary -translate-y-1 self-center min-w-[170px]">
+                                            <i class="fa fa-spinner fa-spin"></i> Don't Allow...</p>
+                                             &nbsp;
+                                            <h:commandButton id="allowButton"
+                                            styleClass="button rounded-xl py-4 px-10 mt-8 bg-primary text-white border-2 border-transparent hover:border-primary hover:bg-primary-light hover:text-primary  self-center min-w-[170px] min-h-[60px] duration-300 ease-in-out transition-all hover:-translate-y-1 hover:drop-shadow-xl"
+                                            value="#{msgs['authorize.allow']}" action="#{consentGatherer.authorize}"
+                                            onclick="javascript:return validate(true)" />
+
+                                            <p id="allowButton_b"
+                                            style="margin-inline-start: 37%; display:none; padding-top:2rem;padding-bottom:1rem;max-width: 170px;max-height: 60px;min-height: 60px;font-weight: bold;"
+                                            class="button rounded-full py-4 px-10 mt-8 bg-primary-light text-primary border-primary -translate-y-1 self-center min-w-[170px]">
+                                            <i class="fa fa-spinner fa-spin"></i> Allow...</p>
 
                                         </div>
+
                                         <div style="display: none;" class="flex flex-col justify-center items-center p-6 mb-6">
                                                 <div class="flex flex-row items-center">
                                                     <div
@@ -360,10 +379,10 @@
                                                         </a>
                                                 </p>
                                         </h:panelGroup> -->
-                                    </div>
+                                   <!-- </div>
                                         <div class="btn_rw">
                                                 <ui:insert name="controlButttons" />
-                                        </div>
+                                        </div> -->
                                 
                         </div>
                         
@@ -373,6 +392,41 @@
                                 </center> -->
                         
                 </div>
+                <script type="text/javascript">
+                    window.sessionStorage.setItem('clicked_option', null);
+                                let text = {};
+                                const fruits = '${consentGatherer.getContext().getSessionAttributes().get('_scope.displayName')}';
+                                console.log(fruits);
+        
+                                document.getElementById("demo").innerHTML = text;
+        
+                                function myFunction(item, index) {
+                                    text += item;
+                                    //console.log(text);
+                                }
+                            </script>
+                            <script type="text/javascript">
+                                window.onload = function () {
+                                    var otpCodeField = document.getElementById("loginForm:otpCode");
+                                    otpCodeField.focus();
+                                    const fruits = '${consentGatherer.getContext().getSessionAttributes().get('_scope.displayName')}';
+                                    console.log(fruits);
+        
+                                };
+                            </script>
+                            <script type="text/javascript">
+                                function validate(arg) {
+                                    document.getElementById("authorizeForm:allowButton").style.display = "none";
+                                    document.getElementById("authorizeForm:doNotAllowButton").style.display = "none";
+                                    if (arg) {
+                                        document.getElementById("allowButton_b").style.display = "block";
+                                    } else {
+                                        document.getElementById("doNotAllowButton_b").style.display = "block";
+                                    }
+                                    return true;
+                                }
+                            </script>
+
                 </h:form>
             </h:panelGroup>
         </div>
