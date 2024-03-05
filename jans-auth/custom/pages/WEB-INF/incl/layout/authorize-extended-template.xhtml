@@ -183,11 +183,8 @@
                                         <ul>
                                                 <ui:fragment rendered="#{_scopes != null or _request != null}">
                                                         <ui:repeat var="_scope" value="#{_scopes}">
-                                                                <li>
-                                                                        <table>
-                                                                                <tr>
-                                                                                        
-                                                                                    <a style="display:block" data-toggle="collapse" data-parent="#accordion" href="#collapse#{_scope.inum}" aria-expanded="true">
+                                                                
+                                                                                <a style="display:block" data-toggle="collapse" data-parent="#accordion" href="#collapse#{_scope.inum}" aria-expanded="true">
                                                                                 <div class="w-full max-w-2xll">
                                                                                 <div class="odd:bg-white sm:bg-white text-midnight sm:mb-5 last-of-type:sm-0 p-6 border-y border-gray sm:rounded-xl cursor-pointer sm:border-2 sm:border-transparent transition-all sm:ease-in-out ">
                                                                                 <div class="flex flex-row items-center justify-between">
@@ -212,9 +209,7 @@
                                                                             </div>
                                                                             </a>
                                                                                         <!-- <td><h:outputText value="#{_scope.description}" /></td> -->
-                                                                                </tr>
-                                                                        </table>
-                                                                </li>
+                                                                     
                                                         </ui:repeat>
                                                         <ui:repeat var="_requestedClaim" value="#{_requestedClaims}">
                                                                 <li>
