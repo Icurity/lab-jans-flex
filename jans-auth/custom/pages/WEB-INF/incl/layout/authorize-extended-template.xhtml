@@ -162,15 +162,15 @@
                         
 
                         <div class="panel-group" id="accordion" style="max-width:100%;">
-                                        <h3>
+                                      <!--  <h3>
                                                 <h:outputText value="#{msgs['authorize.requestForPermission']}" />
                                         </h3>
                                         <h:panelGroup layout="block" class="border_rad"
                                                 rendered='#{!empty client.getLogoUri()}'>
                                                 <h:graphicImage url='#{client.getLogoUri()}' width="65px"
                                                         height="65px" />
-                                        </h:panelGroup>
-
+                                        </h:panelGroup> -->
+                                    <div class="panel panel-default" style="margin: 0 2% 4% 2%; background-color:#ffffff;border:1px solid #27AE60;border-radius: 10px;">
                                         <h3>
                                                 <p class="info">
                                                         <h:outputFormat
@@ -320,6 +320,7 @@
                                                         </a>
                                                 </p>
                                         </h:panelGroup> -->
+                                    </div>
                                         <div class="btn_rw">
                                                 <ui:insert name="controlButttons" />
                                         </div>
