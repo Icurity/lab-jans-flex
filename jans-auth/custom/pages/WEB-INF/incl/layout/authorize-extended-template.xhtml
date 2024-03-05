@@ -171,7 +171,7 @@
                                                         height="65px" />
                                         </h:panelGroup> -->
                                     <div class="panel panel-default" style="margin: 0 2% 4% 2%; background-color:#ffffff;border:1px solid #27AE60;border-radius: 10px;">
-                                        <h3>
+                                       <!-- <h3>
                                                 <p class="info">
                                                         <h:outputFormat
                                                                 value="#{msgs['authorize.requestingPermissionForScopes']}">
@@ -179,16 +179,39 @@
                                                                         value="#{empty client.getClientName()? client.getClientId() : client.getClientName()}" />
                                                         </h:outputFormat>
                                                 </p>
-                                        </h3>
+                                        </h3> -->
                                         <ul>
                                                 <ui:fragment rendered="#{_scopes != null or _request != null}">
                                                         <ui:repeat var="_scope" value="#{_scopes}">
                                                                 <li>
                                                                         <table>
                                                                                 <tr>
-                                                                                        <td><span class="user"><i
-                                                                                                        class="fa fa-user-circle"></i></span></td>
-                                                                                        <td><h:outputText value="#{_scope.description}" /></td>
+                                                                                        
+                                                                                    <a style="display:block" data-toggle="collapse" data-parent="#accordion" href="#collapse#{_scope.inum}" aria-expanded="true">
+                                                                                <div class="w-full max-w-2xll">
+                                                                                <div class="odd:bg-white sm:bg-white text-midnight sm:mb-5 last-of-type:sm-0 p-6 border-y border-gray sm:rounded-xl cursor-pointer sm:border-2 sm:border-transparent transition-all sm:ease-in-out ">
+                                                                                <div class="flex flex-row items-center justify-between">
+                                                                                <div class="flex flex-row items-center">
+                                                                                <div class="bg-primary p-2 rounded-full" style="color: #2c5703;display: none;">
+                                                                                    <svg viewBox="0 0 13.5 10.2" height="22" width="22">
+                                                                                        <path fill="white"
+                                                                                            d="M4.6,9.9L0.3,5.5C0,5.3,0,4.8,0.3,4.6l0.9-0.9c0.3-0.3,0.7-0.3,0.9,0l2.9,2.9l6.3-6.3C11.6,0,12,0,12.3,0.3l0.9,0.9c0.3,0.3,0.3,0.7,0,0.9L5.6,9.9C5.3,10.1,4.9,10.1,4.6,9.9z">
+                                                                                        </path>
+                                                                                    </svg>
+                                                                                </div>
+                                                                            <div class="ml-4 md:ml-6">#{_scope.description}</div>
+                                                                            </div>
+                                                                            <div class="ml-6">
+                                                                            <div style="border-radius: 50%; border: 1px solid #6fcf97; padding: 9px 12px; width: 35px; height: 35px;">
+                                                                                <i class="fa fa-chevron-right" style=" font-size: 16px; font-weight: 100; color: #6fcf97;"></i>
+                                                                            </div>
+                                                            
+                                                                            </div>
+                                                                            </div>
+                                                                            </div>
+                                                                            </div>
+                                                                            </a>
+                                                                                        <!-- <td><h:outputText value="#{_scope.description}" /></td> -->
                                                                                 </tr>
                                                                         </table>
                                                                 </li>
