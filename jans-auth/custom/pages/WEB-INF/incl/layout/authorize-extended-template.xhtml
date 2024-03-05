@@ -160,7 +160,7 @@
                         
 
                         
-
+                    <ui:fragment rendered="#{_scopes != null or _request != null}">
                         <div class="panel-group" id="accordion" style="max-width:100%;">
                                       <!--  <h3>
                                                 <h:outputText value="#{msgs['authorize.requestForPermission']}" />
@@ -181,7 +181,7 @@
                                                 </p>
                                         </h3> -->
                                         
-                                                <ui:fragment rendered="#{_scopes != null or _request != null}">
+                                                
                                                         <ui:repeat var="_scope" value="#{_scopes}">
                                                             <div class="panel panel-default" style="margin: 0 2% 4% 2%; background-color:#ffffff;border:1px solid #27AE60;border-radius: 10px;">
                                                                                 <a style="display:block" data-toggle="collapse" data-parent="#accordion" href="#collapse#{_scope.inum}" aria-expanded="true">
@@ -233,6 +233,7 @@
                                                                                         <!-- <td><h:outputText value="#{_scope.description}" /></td> -->
                                                                      
                                                         </ui:repeat>
+                                                    </div>
                                                        <!-- <ui:repeat var="_requestedClaim" value="#{_requestedClaims}">
                                                                 <li>
                                                                         <table>
@@ -385,7 +386,7 @@
                                                 <ui:insert name="controlButttons" />
                                         </div>  -->
                                 
-                        </div>
+                       
                         
                           <!--      <center>
                                         #{msgs['common.copyright']} <a href="http://www.gluu.org">Gluu</a>.
