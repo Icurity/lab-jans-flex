@@ -170,7 +170,7 @@
                                                 <h:graphicImage url='#{client.getLogoUri()}' width="65px"
                                                         height="65px" />
                                         </h:panelGroup> -->
-                                    <div class="panel panel-default" style="margin: 0 2% 4% 2%; background-color:#ffffff;border:1px solid #27AE60;border-radius: 10px;">
+                                    
                                        <!-- <h3>
                                                 <p class="info">
                                                         <h:outputFormat
@@ -180,10 +180,10 @@
                                                         </h:outputFormat>
                                                 </p>
                                         </h3> -->
-                                        <ul>
+                                        
                                                 <ui:fragment rendered="#{_scopes != null or _request != null}">
                                                         <ui:repeat var="_scope" value="#{_scopes}">
-                                                                
+                                                            <div class="panel panel-default" style="margin: 0 2% 4% 2%; background-color:#ffffff;border:1px solid #27AE60;border-radius: 10px;">
                                                                                 <a style="display:block" data-toggle="collapse" data-parent="#accordion" href="#collapse#{_scope.inum}" aria-expanded="true">
                                                                                 <div class="w-full max-w-2xll">
                                                                                 <div class="odd:bg-white sm:bg-white text-midnight sm:mb-5 last-of-type:sm-0 p-6 border-y border-gray sm:rounded-xl cursor-pointer sm:border-2 sm:border-transparent transition-all sm:ease-in-out ">
@@ -229,6 +229,7 @@
                                 
                                                                                 </div>
                                                                             </div>
+                                                                        </div>
                                                                                         <!-- <td><h:outputText value="#{_scope.description}" /></td> -->
                                                                      
                                                         </ui:repeat>
@@ -270,7 +271,7 @@
                                                                 </li>
                                                         </ui:fragment>
                                                 </ui:fragment>
-                                        </ul>
+                                        
                                         <h:panelGroup layout="block"
                                                                   rendered="#{!empty authorizeAction.bindingMessage}">
                                                 <p>
@@ -379,7 +380,7 @@
                                                         </a>
                                                 </p>
                                         </h:panelGroup> -->
-                                    </div>
+                                    
                                         <div class="btn_rw">
                                                 <ui:insert name="controlButttons" />
                                         </div>
