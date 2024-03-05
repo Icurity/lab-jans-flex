@@ -394,6 +394,42 @@
                                 </center> -->
                         
                 </div>
+
+                <script type="text/javascript">
+                    window.sessionStorage.setItem('clicked_option', null);
+                                let text = {};
+                                const fruits = '${consentGatherer.getContext().getSessionAttributes().get('_scope.displayName')}';
+                                console.log(fruits);
+        
+                                document.getElementById("demo").innerHTML = text;
+        
+                                function myFunction(item, index) {
+                                    text += item;
+                                    //console.log(text);
+                                }
+                            </script>
+                            <script type="text/javascript">
+                                window.onload = function () {
+                                    var otpCodeField = document.getElementById("loginForm:otpCode");
+                                    otpCodeField.focus();
+                                    const fruits = '${consentGatherer.getContext().getSessionAttributes().get('_scope.displayName')}';
+                                    console.log(fruits);
+        
+                                };
+                            </script>
+                            <script type="text/javascript">
+                                function validate(arg) {
+                                    document.getElementById("authorizeForm:allowButton").style.display = "none";
+                                    document.getElementById("authorizeForm:doNotAllowButton").style.display = "none";
+                                    if (arg) {
+                                        document.getElementById("allowButton_b").style.display = "block";
+                                    } else {
+                                        document.getElementById("doNotAllowButton_b").style.display = "block";
+                                    }
+                                    return true;
+                                }
+                            </script>
+
                 </h:form>
             </h:panelGroup>
         </div>
