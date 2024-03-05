@@ -212,12 +212,12 @@
                                                                             <div id="collapse#{_scope.inum}" class="panel-collapse collapse">
                                                                                 <div class="panel-body">
                                                                                     <ul class="ub_list"> 
-                                                                                        <ui:repeat var="claim" value="#{fn:split(consentGatherer.getContext().getSessionAttributes().get(_scope.displayName),',')}">
+                                                                                        <ui:repeat var="_requestedClaim" value="#{fn:split(consentGatherer.getContext().getSessionAttributes().get(_scope.displayName),',')}">
                                                                                         <li class = "msg_list">
                                                                                                 <div style = "width: auto" class = "fl_bx">
                                                                                                    <section>
                                                                                                     <span style="font-size: 11px !important; color: inherit">
-                                                                                                        <h:outputText value="#{claim}" />
+                                                                                                        <h:outputText value="#{_requestedClaim}" />
                                                     
                                                                                                     </span>
                                                                                                     </section>
@@ -232,7 +232,7 @@
                                                                                         <!-- <td><h:outputText value="#{_scope.description}" /></td> -->
                                                                      
                                                         </ui:repeat>
-                                                        <ui:repeat var="_requestedClaim" value="#{_requestedClaims}">
+                                                       <!-- <ui:repeat var="_requestedClaim" value="#{_requestedClaims}">
                                                                 <li>
                                                                         <table>
                                                                                 <tr>
@@ -245,7 +245,7 @@
                                                                                 </tr>
                                                                         </table>
                                                                 </li>
-                                                        </ui:repeat>
+                                                        </ui:repeat>  -->
                             <ui:repeat var="_authzDetail" value="#{_authzDetails}">
                                 <li>
                                     <table>
