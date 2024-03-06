@@ -103,7 +103,7 @@
                                 </div>
 
                         </div>
-
+                        <ui:fragment rendered="#{_scopes != null or _request != null}">
                         <style>
                                     @media(min-width:639px) {
                                         .max-width-639 {
@@ -160,7 +160,7 @@
                         
 
                         
-                    <ui:fragment rendered="#{_scopes != null or _request != null}">
+                    
                         <div class="panel-group" id="accordion" style="max-width:100%;">
                                       <!--  <h3>
                                                 <h:outputText value="#{msgs['authorize.requestForPermission']}" />
