@@ -9,8 +9,6 @@ from jakarta.faces.application import FacesMessage
 from io.jans.jsf2.message import FacesMessages
 from java.util import  HashSet, ArrayList, Arrays
 from io.jans.as.server.security import Identity
-from io.jans.as.common.model.common import User
-from io.jans.as.server.service import UserService
 from io.jans.service.cdi.util import CdiUtil
 from io.jans.util import StringHelper
 from io.jans.as.server.service import SessionIdService, ScopeService, AttributeService
@@ -101,8 +99,6 @@ class ConsentGathering(ConsentGatheringType):
         _tx_id = None
         _client_ref = None
         _reqScopes = None
-        #newUser = User()
-        #userService = CdiUtil.bean(UserService)
 
         if step == 1:
             session = CdiUtil.bean(SessionIdService).getSessionId()
@@ -169,23 +165,16 @@ class ConsentGathering(ConsentGatheringType):
             scopeList = scopeService.getAllScopesList()
             attributeService = CdiUtil.bean(AttributeService)  
             GrantedScopes = sessionAtt.getSessionAttributes(session).get("scope")
-            TestUserName = sessionAtt.getSessionAttributes(session).get("auth_user")
             
-            print "Consent script. Granted scopes: %s" % GrantedScopes
-            #print "Consent script. Authenticated User: %s" % TestUserName
-
-            #newUser.setAttribute("uid",TestUserName)
+            print "Consent script. Granted scopes: %s" % GrantedScopes     
 
             try:
                 for eachScope in GrantedScopes.split(" "):
-                    #print "Consent script. EachScope Inum: %s" % eachScope.getInum()
-                    #print "Consent script. EachScope displayName: %s" % eachScope.getScope()
+                    print "Consent script. Granted scopes split: %s" % eachScope
                     for scope in scopeList:
-                        #print "Consent script. EachScope: %s" % scope.getDisplayName()
                         print "Consent script. Scopes In scopeList: %s" %  scope.getDisplayName()
                         claimList =  ArrayList()
-                        #print "Consent script. EachScope: %s" % scope.getDisplayName()
-                        if (scope == eachScope):
+                        if (scope.getDisplayName() == eachScope):
                             #print "Consent script. Comparing scope with GrantedScopes: %s" %  scope
                             for claim in scope.getClaims():
                                 print "Consent script. Get scope claims: %s" %  scope.getClaims()
