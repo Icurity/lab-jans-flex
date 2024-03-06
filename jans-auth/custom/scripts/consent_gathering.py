@@ -180,8 +180,9 @@ class ConsentGathering(ConsentGatheringType):
                                 print "Consent script. Get scope claims: %s" %  scope.getClaims()
                                 claimName = attributeService.getAttributeByDn(claim).getDescription()
                                 claimList.add(claimName)
+                                print "Consent script. Requested scope claim: %s" % claimName
                             context.addSessionAttribute(str(eachScope),str(claimList).replace("[","").replace("]",""))
-                            print "Consent script. Each scope requested: %s" % claimName
+                            
             except:
                 logError(
                     "prepareForStep. event_id: '%s' client_ref: '%s' bvn: '%s'. Failed to process claims due to exception '%s' with message: '%s' and trace: '%s'." % (
