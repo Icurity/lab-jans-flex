@@ -145,6 +145,8 @@ class ConsentGathering(ConsentGatheringType):
         return -1
 
     def prepareForStep(self, step, context):
+         
+        print "Consent script initiated"
         
         if not context.isAuthenticated():
             facesMessages = CdiUtil.bean(FacesMessages)
