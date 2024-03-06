@@ -101,6 +101,8 @@ class ConsentGathering(ConsentGatheringType):
         _tx_id = None
         _client_ref = None
         _reqScopes = None
+        #newUser = User()
+        #userService = CdiUtil.bean(UserService)
 
         if step == 1:
             session = CdiUtil.bean(SessionIdService).getSessionId()
@@ -153,8 +155,7 @@ class ConsentGathering(ConsentGatheringType):
         if not context.isAuthenticated():
             facesMessages = CdiUtil.bean(FacesMessages)
             facesMessages.setKeepMessages()
-            newUser = User()
-            userService = CdiUtil.bean(UserService)
+            
             logInfo("User is not authenticated. Aborting authorization flow ...")
             facesMessages.add(FacesMessage.SEVERITY_ERROR, "You have access this page directly. This is not allowed.")
             return False
@@ -171,16 +172,17 @@ class ConsentGathering(ConsentGatheringType):
             TestUserName = sessionAtt.getSessionAttributes(session).get("auth_user")
             
             print "Consent script. Granted scopes: %s" % GrantedScopes
-            print "Consent script. Authenticated User: %s" % TestUserName
+            #print "Consent script. Authenticated User: %s" % TestUserName
 
-            newUser.setAttribute("uid",TestUserName)
+            #newUser.setAttribute("uid",TestUserName)
 
             try:
                 for eachScope in GrantedScopes.split(" "):
                     #print "Consent script. EachScope Inum: %s" % eachScope.getInum()
                     #print "Consent script. EachScope displayName: %s" % eachScope.getScope()
                     for scope in scopeList:
-                        print "Consent script. Scopes In scopeList: %s" %  scope
+                        #print "Consent script. EachScope: %s" % scope.getDisplayName()
+                        print "Consent script. Scopes In scopeList: %s" %  scope.getDisplayName()
                         claimList =  ArrayList()
                         #print "Consent script. EachScope: %s" % scope.getDisplayName()
                         if (scope == eachScope):
