@@ -209,32 +209,8 @@
                                                                             </div>
                                                                             </a>
 
-                                                                            <div id="collapse#{_scope.inum}" class="panel-collapse collapse">
-                                                                                <div class="panel-body">
-                                                                                    <ul class="ub_list"> 
-                                                                                        <ui:repeat var="claim" value="#{fn:split(consentGatherer.getContext().getSessionAttributes().get(_scope.displayName),',')}">
-                                                                                        <li class = "msg_list">
-                                                                                                <div style = "width: auto" class = "fl_bx">
-                                                                                                   <section>
-                                                                                                    <span style="font-size: 11px !important; color: inherit">
-                                                                                                        <h:outputText value="#{claim}" />
-                                                    
-                                                                                                    </span>
-                                                                                                    </section>
-                                                                                                </div>
-                                                                                            </li>
-                                                                                            </ui:repeat>
-                                                                                        </ul>
-                                                                                   
-                                
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                                        <!-- <td><h:outputText value="#{_scope.description}" /></td> -->
-                                                                     
-                                                        </ui:repeat>
-                                                    </div>
-                                                        <ui:repeat var="_requestedClaim" value="#{_requestedClaims}">
+
+                                                                            <ui:repeat var="_requestedClaim" value="#{_requestedClaims}">
                                                                 <li>
                                                                         <table>
                                                                                 <tr>
@@ -259,6 +235,32 @@
                                     </table>
                                 </li>
                             </ui:repeat> 
+                                                                          <!--  <div id="collapse#{_scope.inum}" class="panel-collapse collapse">
+                                                                                <div class="panel-body">
+                                                                                    <ul class="ub_list"> 
+                                                                                        <ui:repeat var="claim" value="#{fn:split(consentGatherer.getContext().getSessionAttributes().get(_scope.displayName),',')}">
+                                                                                        <li class = "msg_list">
+                                                                                                <div style = "width: auto" class = "fl_bx">
+                                                                                                   <section>
+                                                                                                    <span style="font-size: 11px !important; color: inherit">
+                                                                                                        <h:outputText value="#{claim}" />
+                                                    
+                                                                                                    </span>
+                                                                                                    </section>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                            </ui:repeat>
+                                                                                        </ul>
+                                                                                   
+                                
+                                                                                </div>
+                                                                            </div> -->
+                                                                        </div>
+                                                                                        <!-- <td><h:outputText value="#{_scope.description}" /></td> -->
+                                                                     
+                                                        </ui:repeat>
+                                                    </div>
+                                                        
                                                         <ui:fragment rendered="#{_request != null}">
                                                                 <li>
                                                                         <table>
