@@ -165,13 +165,16 @@ class ConsentGathering(ConsentGatheringType):
             attributeService = CdiUtil.bean(AttributeService)  
             GrantedScopes = sessionAtt.getSessionAttributes(session).get("scope")
             print "Consent script. Granted scopes: %s" % GrantedScopes
+            
             try:
-                for eachScope in GrantedScopes.split(" "):             
+                for eachScope in GrantedScopes.split(" "):
+                    print "Consent script. EachScope: %s" % eachScope             
                     for scope in scopeList:
+                        print "Consent script. scope in scopeList: %s" % scope
                         claimList =  ArrayList()
                         if (scope.getDisplayName() == eachScope):
                             for claim in scope.getClaims():
-                                print "Consent script. Granted claim: %s" % claim
+                                print "Consent script. Get scope claims: %s" %  scope.getClaims()
                                 claimName = attributeService.getAttributeByDn(claim).getDescription()
                                 claimList.add(claimName)
                             context.addSessionAttribute(str(eachScope),str(claimList).replace("[","").replace("]",""))
