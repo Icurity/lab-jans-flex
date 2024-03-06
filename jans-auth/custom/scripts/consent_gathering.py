@@ -168,9 +168,10 @@ class ConsentGathering(ConsentGatheringType):
 
             try:
                 for eachScope in GrantedScopes.split(" "):
-                    print "Consent script. EachScope: %s" % eachScope             
+                    print "Consent script. EachScope: %s" % eachScope.getDisplayName()             
                     for scope in scopeList:
                         claimList =  ArrayList()
+                        #print "Consent script. EachScope: %s" % scope.getDisplayName()
                         if (scope.getDisplayName() == eachScope):
                             for claim in scope.getClaims():
                                 print "Consent script. Get scope claims: %s" %  scope.getClaims()
