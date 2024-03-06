@@ -212,7 +212,7 @@
                                                                             <div id="collapse#{_scope.inum}" class="panel-collapse collapse">
                                                                                 <div class="panel-body">
                                                                                     <ul class="ub_list"> 
-                                                                                        <ui:repeat var="_requestedClaim" value="#{msgs['authorize.viewIndividualClaim']}">
+                                                                                        <ui:repeat var="_requestedClaims" value="#{fn:split(consentGatherer.getContext().getSessionAttributes().get(_scope.displayName),',')}">
                                                                                         <li class = "msg_list">
                                                                                                 <div style = "width: auto" class = "fl_bx">
                                                                                                    <section>
