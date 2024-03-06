@@ -172,10 +172,10 @@ class ConsentGathering(ConsentGatheringType):
                 for eachScope in GrantedScopes.split(" "):
                     print "Consent script. Granted scopes split: %s" % eachScope
                     for scope in scopeList:
-                        print "Consent script. Scopes In scopeList: %s" %  scope.getId()
+                        #print "Consent script. Scopes In scopeList: %s" %  scope.getId()
                         claimList =  ArrayList()
                         if (scope.getId() == eachScope):
-                            #print "Consent script. Comparing scope with GrantedScopes: %s" %  scope
+                            print "Consent script. Match found in scopes with GrantedScopes: %s" %  scope.getId()
                             for claim in scope.getClaims():
                                 print "Consent script. Get scope claims: %s" %  scope.getClaims()
                                 claimName = attributeService.getAttributeByDn(claim).getDescription()
