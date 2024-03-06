@@ -212,15 +212,12 @@
                                                                             <div id="collapse#{_scope.inum}" class="panel-collapse collapse">
                                                                                 <div class="panel-body">
                                                                                     <ul class="ub_list"> 
-                                                                                        <ui:repeat var="_requestedClaims" value="#{fn:split(consentGatherer.getContext().getSessionAttributes().get(_scope.displayName),',')}">
+                                                                                        <ui:repeat var="claim" value="#{fn:split(consentGatherer.getContext().getSessionAttributes().get(_scope.id),',')}">
                                                                                         <li class = "msg_list">
                                                                                                 <div style = "width: auto" class = "fl_bx">
                                                                                                    <section>
                                                                                                     <span style="font-size: 11px !important; color: inherit">
-                                                                                                        <h:outputFormat
-                                                                                                        value="#{msgs['authorize.viewIndividualClaim']}">
-                                                                                                        <f:param value="#{_requestedClaim}" />
-                                                                                                </h:outputFormat>
+                                                                                                        <h:outputText value="#{claim}" />
                                                     
                                                                                                     </span>
                                                                                                     </section>
