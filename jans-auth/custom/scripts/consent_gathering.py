@@ -164,12 +164,14 @@ class ConsentGathering(ConsentGatheringType):
             scopeList = scopeService.getAllScopesList()
             attributeService = CdiUtil.bean(AttributeService)  
             GrantedScopes = sessionAtt.getSessionAttributes(session).get("scope")
+            print "Consent script. Granted scopes: %s" % GrantedScopes
             try:
                 for eachScope in GrantedScopes.split(" "):             
                     for scope in scopeList:
                         claimList =  ArrayList()
                         if (scope.getDisplayName() == eachScope):
-                            for claim in scope.getOxAuthClaims():
+                            for claim in scope.getClaims():
+                                print "Consent script. Granted claim: %s" % claim
                                 claimName = attributeService.getAttributeByDn(claim).getDescription()
                                 claimList.add(claimName)
                             context.addSessionAttribute(str(eachScope),str(claimList).replace("[","").replace("]",""))

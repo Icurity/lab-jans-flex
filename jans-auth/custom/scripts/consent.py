@@ -47,7 +47,7 @@ from jakarta.faces.application import FacesMessage
 from io.jans.jsf2.message import FacesMessages
 from io.jans.model.custom.script.type.auth import PersonAuthenticationType
 from io.jans.as.server.service import AuthenticationService, SessionIdService, ClientService
-from io.jans.as.server.service import UserService
+from o.jans.as.common.service.common import UserService
 #from io.jans.as.server.service import ClientAuthorizationsService
 from io.jans.as.server.security import Identity
 from io.jans.as.server.util import ServerUtil
